@@ -20,19 +20,6 @@ Ford is a multinational automotive company that designs, manufactures, and sells
 
 ## APIs
 
-### Ford
-Ford provides APIs to authorized system providers who need to determine WLTP values of a new Ford vehicle.
-
-**Human URL:** [https://developer.ford.com](https://developer.ford.com)
-
-
-#### Tags:
-
- - API
-
-#### Properties
-
-- [Documentation](https://developer.ford.com)
 ### FordConnect
 FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles. The API enables FordPass and Lincoln Way customers to provide third-party applications access to their connected vehicles. FordConnect uses OAuth 2.0 authorization code flow and authorization scopes.
 
