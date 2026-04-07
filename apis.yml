@@ -10,8 +10,8 @@ created: '2025-02-25'
 modified: '2026-03-16'
 position: Consumer
 tags:
-  - Cars
   - Automobiles
+  - Cars
   - Vehicles
 url: https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml
 specificationVersion: '0.19'
