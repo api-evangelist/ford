@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,125 +9,76 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Ford
 providerId: ford
-publisherName: Ford
-serviceCategory: API
+publisherName: Ford Motor Company
+serviceCategory: Connected Vehicle / Mobility
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Automobiles
-  - Cars
-  - Vehicles
+  - Connected Vehicle
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Ford API surface. Provides a FOCUS-aligned mapping for
-  cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: FOCUS-aligned FinOps mapping for Ford's Developer Marketplace — partner-licensed connected-vehicle APIs typically billed on a per-vehicle subscription plus per-call usage basis under a partnership agreement.
+notes: No public pricing. Meters reflect typical connected-vehicle/OEM API invoicing patterns (per-VIN subscription, per-call fees, premium-data add-ons).
+sources:
+  - https://developer.ford.com/
+  - https://developer.ford.com/apis
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Subscription + Usage
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Credit
 focusColumns:
-  ServiceName: Ford
-  ServiceCategory: Developer Tools / API
-  ProviderName: Ford
-  PublisherName: Ford
-  InvoiceIssuerName: Ford
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: Ford Developer Marketplace
+  ServiceCategory: Connected Vehicle / Mobility
+  ProviderName: Ford Motor Company
+  PublisherName: Ford Motor Company
+  InvoiceIssuerName: Ford Motor Company
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: vehicle_subscriptions
+    description: Active connected-vehicle (VIN) subscriptions enrolled with the partner application
+    unit: vehicle-month
+    aggregation: max
+    dimensions:
+      - region
+      - vehicle_model
+      - data_package
+  - name: api_calls
+    description: API requests against vehicle, location, telemetry, or dealer endpoints
     unit: request
     aggregation: sum
     dimensions:
       - api
       - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - data_class
+  - name: streaming_events
+    description: Webhook / streaming events delivered (telemetry, status changes, alerts)
+    unit: event
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - event_type
+      - vehicle_model
+  - name: premium_data
+    description: Premium-data add-ons (high-resolution telemetry, historical replay, OBD-II extended PIDs)
+    unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: FordConnect
-    baseURL: ''
-    tags: []
-    serviceName: FordConnect
-    serviceCategory: API
-  - name: Ford WLTP Emissions
-    baseURL: ''
-    tags: []
-    serviceName: Ford WLTP Emissions
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+      - data_class
+principles:
+  - name: Visibility
+    description: Pull partner-portal usage reports daily and reconcile against your own request logs to catch billable polling against vehicles whose owners have revoked consent.
+  - name: Allocation
+    description: Tag every request with end-customer/account, VIN, and use-case so spend is allocable to the downstream product feature.
+  - name: Optimization
+    description: Replace polling with webhooks/streaming where Ford supports it; respect minimum poll intervals to avoid wasted billable calls and TCU wake-ups; cache static data (VIN-decode, model trims).
+  - name: Accountability
+    description: Connected-vehicle product owner owns the partnership agreement; finance audits per-VIN subscription counts against active consent records monthly.
+maintainers: []

@@ -4,89 +4,40 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Ford
 providerId: ford
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Automobiles
-  - Cars
-  - Vehicles
+  - Connected Vehicle
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Ford API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Ford's Developer Marketplace does not publish numeric API rate limits. Throttles are sized per partner agreement and per-vehicle data-fetch policies (e.g. minimum poll intervals on telemetry endpoints to protect vehicle modems and battery). Standard 429/503 conventions are expected.
+notes: No public RPS/RPM at developer.ford.com. Vehicle-touching endpoints typically enforce minimum polling intervals (commonly tens of seconds) to protect TCU/modem; exact numbers per partnership.
+sources:
+  - https://developer.ford.com/
+  - https://developer.ford.com/apis
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
+  - name: Per-partner API throttle
+    scope: partner/api-key
+    metric: varies
+    limit: per-partner agreement; not publicly published
     applies:
-      - FordConnect
-      - Ford WLTP Emissions
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
+      - Ford Connected Vehicle API
+      - Ford FordPass API
+      - Ford Dealer / Fleet API
+  - name: Per-vehicle telemetry poll minimum
+    scope: vehicle
+    metric: minimum_poll_interval
+    limit: enforced per endpoint to protect TCU/modem; not publicly published
     applies:
-      - FordConnect
-      - Ford WLTP Emissions
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - FordConnect
-      - Ford WLTP Emissions
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - FordConnect
-      - Ford WLTP Emissions
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - FordConnect
-      - Ford WLTP Emissions
+      - Ford Connected Vehicle Telemetry
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    description: Clients should implement exponential backoff with jitter on 429/5xx and honor Retry-After when present.
+  - name: Vehicle-Touch Throttling
+    description: Endpoints that wake or query the vehicle TCU enforce minimum poll intervals to protect 12V battery and modem; subscribe to webhooks/streaming where available rather than polling.
+  - name: Customer Consent
+    description: Per-VIN access is gated by the vehicle owner's consent on FordPass; revoked consent terminates throttling allocation immediately.
+maintainers: []
