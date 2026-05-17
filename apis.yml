@@ -40,9 +40,9 @@ apis:
 common:
   - type: Portal
     url: https://developer.ford.com/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.ford.com/help/terms/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.ford.com/help/privacy/
   - type: Website
     url: https://www.ford.com/
