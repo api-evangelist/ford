@@ -38,6 +38,10 @@ apis:
       With this API, authorized external parties can retrieve WLTP values based
       on a specific vehicle configuration.
 common:
+  - type: GitHubOrganization
+    url: https://github.com/ford
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/ford-motor-company
   - type: Portal
     url: https://developer.ford.com/
   - type: TermsOfService
