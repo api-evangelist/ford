@@ -1,0 +1,250 @@
+openapi: 3.1.0
+info:
+  title: FordConnect API
+  version: "1.0"
+  description: |
+    Best-effort OpenAPI 3.1 description of the FordConnect API, derived from
+    the public developer page at https://developer.ford.com/apis/fordconnect
+    and the public FordConnect simulator at
+    https://github.com/jamisonderek/ford-connect-sim. The FordConnect API
+    allows authorized partners to send vehicle commands (lock, unlock, start,
+    stop, charge) and retrieve vehicle status and information for enrolled
+    Ford and Lincoln vehicles. Authentication uses OAuth 2.0 with an
+    authorization-code grant; access tokens are passed as `Authorization:
+    Bearer` headers.
+  contact:
+    name: Ford Developer
+    url: https://developer.ford.com/
+servers:
+  - url: https://api.mps.ford.com
+    description: Production (FordConnect)
+security:
+  - oauth2: []
+  - bearerAuth: []
+tags:
+  - name: OAuth
+  - name: Vehicles
+  - name: Commands
+  - name: Charging
+  - name: Status
+  - name: Images
+paths:
+  /oauth2/v2.0/token:
+    post:
+      tags: [OAuth]
+      summary: Exchange authorization code for access token, or refresh token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [grant_type, client_id]
+              properties:
+                grant_type: { type: string, enum: [authorization_code, refresh_token] }
+                client_id: { type: string }
+                client_secret: { type: string }
+                code: { type: string }
+                redirect_uri: { type: string }
+                refresh_token: { type: string }
+      responses:
+        '200':
+          description: Token response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  refresh_token: { type: string }
+                  token_type: { type: string }
+                  expires_in: { type: integer }
+  /api/fordconnect/vehicles/v1:
+    get:
+      tags: [Vehicles]
+      summary: List vehicles enrolled with the calling FordPass account
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    get:
+      tags: [Vehicles]
+      summary: Get vehicle information
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/lock:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Commands]
+      summary: Issue a lock command
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/lock/{commandId}:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+      - $ref: '#/components/parameters/CommandId'
+    get:
+      tags: [Commands]
+      summary: Check lock command status
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/unlock:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Commands]
+      summary: Issue an unlock command
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/unlock/{commandId}:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+      - $ref: '#/components/parameters/CommandId'
+    get:
+      tags: [Commands]
+      summary: Check unlock command status
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/startEngine:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Commands]
+      summary: Remote start engine
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/stopEngine:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Commands]
+      summary: Remote stop engine
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/wake:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Commands]
+      summary: Wake the vehicle from sleep
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/startCharge:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Charging]
+      summary: Start charging an EV
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/stopCharge:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Charging]
+      summary: Stop charging an EV
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/chargeSchedules:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    get:
+      tags: [Charging]
+      summary: Get EV charge schedule
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/departureTimes:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    get:
+      tags: [Charging]
+      summary: Get configured departure times
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/status:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Status]
+      summary: Request a fresh vehicle status snapshot
+      responses:
+        '202': { $ref: '#/components/responses/Command' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/location:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    post:
+      tags: [Status]
+      summary: Request vehicle location
+      responses:
+        '200': { $ref: '#/components/responses/Json' }
+  /api/fordconnect/vehicles/v1/{vehicleId}/images/thumbnail:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    get:
+      tags: [Images]
+      summary: Get vehicle thumbnail image
+      responses:
+        '200':
+          description: Image
+          content:
+            image/png:
+              schema: { type: string, format: binary }
+  /api/fordconnect/vehicles/v1/{vehicleId}/images/full:
+    parameters:
+      - $ref: '#/components/parameters/VehicleId'
+    get:
+      tags: [Images]
+      summary: Get full vehicle image
+      responses:
+        '200':
+          description: Image
+          content:
+            image/png:
+              schema: { type: string, format: binary }
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authorization-code grant brokered through Ford's identity service
+      flows:
+        authorizationCode:
+          authorizationUrl: https://fordconnect.cv.ford.com/common/login
+          tokenUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token
+          scopes:
+            "access": Access enrolled vehicles
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    VehicleId:
+      name: vehicleId
+      in: path
+      required: true
+      schema: { type: string }
+    CommandId:
+      name: commandId
+      in: path
+      required: true
+      schema: { type: string }
+  responses:
+    Json:
+      description: JSON response
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    Command:
+      description: Command accepted
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              commandStatus: { type: string }
+              commandId: { type: string }
