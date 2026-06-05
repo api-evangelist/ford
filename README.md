@@ -1,63 +1,62 @@
 # Ford (ford)
-Ford is a multinational automotive company that designs, manufactures, and sells a wide range of vehicles, including cars, trucks, and SUVs. They are known for their commitment to innovation and quality, with a focus on producing environmentally-friendly vehicles. Ford also offers a variety of financial services to help customers purchase and maintain their vehicles. In addition to their automotive operations, Ford is involved in various initiatives to support communities and promote sustainability. Overall, Ford is a leading player in the automotive industry, continuously striving to provide cutting-edge vehicles and services to their customers.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml)
+Ford is a multinational automotive company that designs, manufactures, and sells a wide range of vehicles, including cars, trucks, and SUVs.
+
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Index 
-- **Position:** Consumer 
-- **Access:** 3rd-Party 
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Cars, Automobiles, Vehicles
+- Automobiles
+- Cars
+- Vehicles
 
 ## Timestamps
 
-- **Created:** 2025-02-25 
-- **Modified:** 2026-04-28 
+- **Created:** 2025-02-25
+- **Modified:** 2026-04-28
 
 ## APIs
 
 ### FordConnect
-FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles. The API enables FordPass and Lincoln Way customers to provide third-party applications access to their connected vehicles. FordConnect uses OAuth 2.0 authorization code flow and authorization scopes.
 
-**Human URL:** [https://developer.ford.com/apis/fordconnect](https://developer.ford.com/apis/fordconnect)
+FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles.
 
-
-#### Tags:
-
- - No Tags
+- **Human URL:** [https://developer.ford.com/apis/fordconnect](https://developer.ford.com/apis/fordconnect)
 
 #### Properties
 
 - [Documentation](https://developer.ford.com/apis/fordconnect)
+- [Postman Collection](collections/ford.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ford.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
 ### Ford WLTP Emissions
-Vehicle emissions values get increasingly important for determining the price or the cost of a new vehicle. With this API, authorized external parties (like dealers, dealer system providers, fleet system providers, or similar) can retrieve WLTP values based on a specific vehicle configuration.
 
-**Human URL:** [https://developer.ford.com/emissions](https://developer.ford.com/emissions)
+With this API, authorized external parties can retrieve WLTP values based on a specific vehicle configuration.
 
-
-#### Tags:
-
- - No Tags
+- **Human URL:** [https://developer.ford.com/emissions](https://developer.ford.com/emissions)
 
 #### Properties
 
 - [Documentation](https://developer.ford.com/emissions)
+- [Postman Collection](collections/ford.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ford.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [GitHub Organization](https://github.com/ford)
+- [LinkedIn](https://www.linkedin.com/company/ford-motor-company)
 - [Portal](https://developer.ford.com/)
-- [Portal](https://developer.ford.com/)
-- [TermsOfService](https://www.ford.com/help/terms/)
-- [PrivacyPolicy](https://www.ford.com/help/privacy/)
-- [UseCases](https://developer.ford.com/use-cases)
+- [Terms of Service](https://www.ford.com/help/terms/)
+- [Privacy Policy](https://www.ford.com/help/privacy/)
+- [Website](https://www.ford.com/)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
-**Email:** info@apievangelist.com
-
+**Email:** kin@apievangelist.com
