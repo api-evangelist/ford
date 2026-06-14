@@ -1,0 +1,887 @@
+# Ford Motor Company — Conceptual GraphQL Schema
+# Source: https://developer.ford.com/
+# APIs: FordConnect, Ford WLTP Emissions
+# Schema type: Conceptual
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar URL
+scalar Latitude
+scalar Longitude
+scalar KilometersPerLiter
+scalar Liters
+scalar Kilometers
+scalar Percentage
+scalar Kilowatts
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum IgnitionState {
+  ON
+  OFF
+  ACCESSORY
+  UNKNOWN
+}
+
+enum DoorState {
+  OPEN
+  CLOSED
+  AJAR
+  UNKNOWN
+}
+
+enum LockState {
+  LOCKED
+  UNLOCKED
+  UNKNOWN
+}
+
+enum WindowState {
+  OPEN
+  CLOSED
+  PARTIALLY_OPEN
+  UNKNOWN
+}
+
+enum ChargeState {
+  CHARGING
+  NOT_CHARGING
+  FULLY_CHARGED
+  CHARGE_PENDING
+  FAULT
+  UNKNOWN
+}
+
+enum PlugState {
+  PLUGGED_IN
+  UNPLUGGED
+  UNKNOWN
+}
+
+enum RemoteCommandStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  TIMEOUT
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum FuelType {
+  GASOLINE
+  DIESEL
+  ELECTRIC
+  HYBRID
+  PLUG_IN_HYBRID
+  HYDROGEN
+}
+
+enum DrivetrainType {
+  FWD
+  RWD
+  AWD
+  FOUR_WD
+}
+
+enum VehicleCondition {
+  NEW
+  USED
+  CERTIFIED_PRE_OWNED
+}
+
+enum TokenType {
+  ACCESS_TOKEN
+  REFRESH_TOKEN
+}
+
+enum WebhookEvent {
+  VEHICLE_STATUS_CHANGED
+  DOOR_STATE_CHANGED
+  LOCK_STATE_CHANGED
+  CHARGE_STATE_CHANGED
+  LOCATION_UPDATED
+  ALERT_TRIGGERED
+  REMOTE_COMMAND_COMPLETED
+}
+
+enum ConnectorType {
+  CCS
+  CHADEMO
+  TYPE2
+  J1772
+  NACS
+  CCS2
+}
+
+# ─────────────────────────────────────────────
+# Vehicle Identity
+# ─────────────────────────────────────────────
+
+type VIN {
+  value: String!
+  worldManufacturerIdentifier: String
+  vehicleDescriptorSection: String
+  vehicleIdentifierSection: String
+}
+
+type Make {
+  id: ID!
+  name: String!
+  country: String
+}
+
+type Model {
+  id: ID!
+  name: String!
+  make: Make!
+  years: [Year!]
+}
+
+type Trim {
+  id: ID!
+  name: String!
+  model: Model!
+  year: Year!
+  fuelType: FuelType
+  drivetrain: DrivetrainType
+  basePrice: Float
+  currency: String
+}
+
+type Year {
+  value: Int!
+}
+
+type Color {
+  id: ID!
+  name: String!
+  hexCode: String
+  type: String
+}
+
+type Vehicle {
+  id: ID!
+  vin: VIN!
+  make: Make!
+  model: Model!
+  trim: Trim
+  year: Year!
+  color: Color
+  fuelType: FuelType
+  drivetrain: DrivetrainType
+  engineDisplacement: Float
+  transmissionType: String
+  seatingCapacity: Int
+  nickName: String
+  imageUrl: URL
+}
+
+type VehicleProfile {
+  id: ID!
+  vehicle: Vehicle!
+  owner: String
+  enrolledInFordPass: Boolean!
+  connectedServicesEnabled: Boolean!
+  registeredAt: DateTime
+  lastSeen: DateTime
+}
+
+type ConnectedVehicle {
+  id: ID!
+  vehicle: Vehicle!
+  profile: VehicleProfile!
+  status: VehicleStatus
+  location: Location
+  odometer: OdoReading
+  alerts: [VehicleAlert!]
+  fuelLevel: FuelLevel
+  batteryLevel: BatteryLevel
+  chargeStatus: ChargeStatus
+  tirePressure: TireStatus
+  diagnostics: [DiagnosticCode!]
+  recalls: [Recall!]
+}
+
+# ─────────────────────────────────────────────
+# Vehicle Status
+# ─────────────────────────────────────────────
+
+type VehicleStatus {
+  vehicleId: ID!
+  ignition: IgnitionStatus
+  doors: [DoorStatus!]
+  windows: [WindowStatus!]
+  locks: LockStatus
+  lastUpdated: DateTime!
+}
+
+type IgnitionStatus {
+  state: IgnitionState!
+  changedAt: DateTime
+}
+
+type DoorStatus {
+  position: String!
+  state: DoorState!
+  changedAt: DateTime
+}
+
+type WindowStatus {
+  position: String!
+  state: WindowState!
+  changedAt: DateTime
+}
+
+type LockStatus {
+  state: LockState!
+  changedAt: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Fuel and Odometer
+# ─────────────────────────────────────────────
+
+type FuelLevel {
+  vehicleId: ID!
+  percentRemaining: Percentage
+  distanceToEmpty: Kilometers
+  updatedAt: DateTime!
+}
+
+type OdoReading {
+  vehicleId: ID!
+  value: Kilometers!
+  units: String!
+  recordedAt: DateTime!
+}
+
+type FuelEfficiency {
+  vehicleId: ID!
+  averageMpg: Float
+  averageLitersPer100km: KilometersPerLiter
+  periodStartDate: Date
+  periodEndDate: Date
+}
+
+# ─────────────────────────────────────────────
+# EV / Battery / Charging
+# ─────────────────────────────────────────────
+
+type BatteryLevel {
+  vehicleId: ID!
+  stateOfCharge: Percentage!
+  voltage: Float
+  health: String
+  updatedAt: DateTime!
+}
+
+type PlugStatus {
+  vehicleId: ID!
+  state: PlugState!
+  connectorType: ConnectorType
+  updatedAt: DateTime!
+}
+
+type ChargeStatus {
+  vehicleId: ID!
+  state: ChargeState!
+  plug: PlugStatus
+  batteryLevel: BatteryLevel
+  timeToFullCharge: Int
+  energyAdded: Float
+  updatedAt: DateTime!
+}
+
+type ChargeSettings {
+  vehicleId: ID!
+  targetChargeLevel: Percentage!
+  preferredChargeStartTime: String
+  chargeMode: String
+}
+
+type ChargingSchedule {
+  id: ID!
+  vehicleId: ID!
+  enabled: Boolean!
+  startTime: String!
+  endTime: String
+  daysOfWeek: [String!]!
+  targetChargeLevel: Percentage
+}
+
+type ChargingLocation {
+  id: ID!
+  vehicleId: ID!
+  name: String!
+  coordinate: GPSCoordinate!
+  isHome: Boolean!
+  isWork: Boolean!
+  chargingSchedule: ChargingSchedule
+}
+
+type EVRange {
+  vehicleId: ID!
+  estimatedRangeKm: Kilometers!
+  estimatedRangeMiles: Float!
+  batteryLevel: Percentage!
+  updatedAt: DateTime!
+}
+
+type EVRangeEstimate {
+  vehicleId: ID!
+  conservativeRangeKm: Kilometers
+  optimalRangeKm: Kilometers
+  hvacImpactKm: Kilometers
+  calculatedAt: DateTime!
+}
+
+type ChargingStation {
+  id: ID!
+  name: String!
+  address: String
+  coordinate: GPSCoordinate!
+  network: ChargingNetwork
+  chargingPoints: [ChargingPoint!]
+  accessType: String
+  amenities: [String!]
+  operatingHours: String
+}
+
+type ChargingPoint {
+  id: ID!
+  station: ChargingStation!
+  evse: EVSE
+  connectorType: ConnectorType!
+  powerKw: Kilowatts
+  isAvailable: Boolean!
+  pricingInfo: String
+}
+
+type ChargingNetwork {
+  id: ID!
+  name: String!
+  websiteUrl: URL
+  mobileAppUrl: URL
+  supportPhone: String
+}
+
+type EVSE {
+  id: ID!
+  evseId: String!
+  chargingPoint: ChargingPoint
+  status: String!
+  lastStatusUpdate: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Remote Commands
+# ─────────────────────────────────────────────
+
+type RemoteStart {
+  requestId: ID!
+  vehicleId: ID!
+  status: RemoteCommandStatus!
+  requestedAt: DateTime!
+  completedAt: DateTime
+  duration: Int
+}
+
+type RemoteStop {
+  requestId: ID!
+  vehicleId: ID!
+  status: RemoteCommandStatus!
+  requestedAt: DateTime!
+  completedAt: DateTime
+}
+
+type CommandResult {
+  requestId: ID!
+  vehicleId: ID!
+  command: String!
+  status: RemoteCommandStatus!
+  requestedAt: DateTime!
+  completedAt: DateTime
+  errorMessage: String
+}
+
+# ─────────────────────────────────────────────
+# FordPass
+# ─────────────────────────────────────────────
+
+type FordPass {
+  userId: ID!
+  email: String!
+  vehicles: [ConnectedVehicle!]
+  fordPassPower: FordPassPower
+  fordPassConnect: FordPassConnect
+  rewardsPoints: Int
+  memberSince: Date
+}
+
+type FordPassPower {
+  userId: ID!
+  chargingCredits: Float
+  preferredNetworks: [ChargingNetwork!]
+  chargingHistory: [ChargingSession!]
+}
+
+type FordPassConnect {
+  vehicleId: ID!
+  wifiEnabled: Boolean!
+  wifiSsid: String
+  dataUsedMb: Float
+  dataLimitMb: Float
+  subscriptionExpiry: Date
+}
+
+type ChargingSession {
+  id: ID!
+  vehicleId: ID!
+  station: ChargingStation
+  startedAt: DateTime!
+  endedAt: DateTime
+  energyDeliveredKwh: Float
+  cost: Float
+  currency: String
+}
+
+# ─────────────────────────────────────────────
+# Location and Navigation
+# ─────────────────────────────────────────────
+
+type GPSCoordinate {
+  latitude: Latitude!
+  longitude: Longitude!
+  altitude: Float
+  accuracy: Float
+  heading: Float
+  speedKph: Float
+}
+
+type Location {
+  vehicleId: ID!
+  coordinate: GPSCoordinate!
+  address: String
+  updatedAt: DateTime!
+}
+
+type NavigationRoute {
+  id: ID!
+  vehicleId: ID!
+  origin: GPSCoordinate!
+  destination: GPSCoordinate!
+  waypoints: [GPSCoordinate!]
+  distanceKm: Kilometers
+  estimatedDurationMinutes: Int
+  sentToVehicleAt: DateTime
+}
+
+type PointOfInterest {
+  id: ID!
+  name: String!
+  category: String
+  coordinate: GPSCoordinate!
+  address: String
+  phoneNumber: String
+  websiteUrl: URL
+  rating: Float
+}
+
+# ─────────────────────────────────────────────
+# Trips and Drive History
+# ─────────────────────────────────────────────
+
+type Trip {
+  id: ID!
+  vehicleId: ID!
+  startLocation: GPSCoordinate!
+  endLocation: GPSCoordinate!
+  startedAt: DateTime!
+  endedAt: DateTime
+  distanceKm: Kilometers
+  durationMinutes: Int
+  fuelUsedLiters: Liters
+  energyUsedKwh: Float
+}
+
+type TripDetail {
+  trip: Trip!
+  route: [GPSCoordinate!]
+  maxSpeedKph: Float
+  averageSpeedKph: Float
+  hardBrakingEvents: Int
+  rapidAccelerationEvents: Int
+  idleTimeMinutes: Int
+}
+
+type TripHistory {
+  vehicleId: ID!
+  trips: [Trip!]!
+  totalTrips: Int!
+  totalDistanceKm: Kilometers
+  periodStartDate: Date
+  periodEndDate: Date
+}
+
+type DriveHistory {
+  vehicleId: ID!
+  totalDistanceKm: Kilometers!
+  totalTrips: Int!
+  averageFuelEfficiency: FuelEfficiency
+  lastTripDate: Date
+}
+
+# ─────────────────────────────────────────────
+# Alerts
+# ─────────────────────────────────────────────
+
+type Alert {
+  id: ID!
+  severity: AlertSeverity!
+  category: String!
+  message: String!
+  createdAt: DateTime!
+  resolvedAt: DateTime
+  isResolved: Boolean!
+}
+
+type VehicleAlert {
+  id: ID!
+  vehicleId: ID!
+  alert: Alert!
+  dtcCode: DTCCode
+  acknowledged: Boolean!
+  acknowledgedAt: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Maintenance
+# ─────────────────────────────────────────────
+
+type MaintenanceReminder {
+  id: ID!
+  vehicleId: ID!
+  type: String!
+  dueDate: Date
+  dueMileageKm: Kilometers
+  message: String!
+  isOverdue: Boolean!
+}
+
+type OilChange {
+  id: ID!
+  vehicleId: ID!
+  lastChangedAt: Date
+  lastChangedMileageKm: Kilometers
+  nextDueAt: Date
+  nextDueMileageKm: Kilometers
+  oilLifePercent: Percentage
+}
+
+type ServiceRecord {
+  id: ID!
+  vehicleId: ID!
+  type: String!
+  description: String
+  performedAt: Date!
+  mileageKm: Kilometers
+  dealer: Dealer
+  cost: Float
+  currency: String
+}
+
+type ServiceHistory {
+  vehicleId: ID!
+  records: [ServiceRecord!]!
+  totalRecords: Int!
+}
+
+type TireStatus {
+  vehicleId: ID!
+  frontLeft: TireReading
+  frontRight: TireReading
+  rearLeft: TireReading
+  rearRight: TireReading
+  updatedAt: DateTime!
+}
+
+type TireReading {
+  pressurePsi: Float!
+  pressureKpa: Float
+  temperatureCelsius: Float
+  status: String!
+}
+
+# ─────────────────────────────────────────────
+# Diagnostics
+# ─────────────────────────────────────────────
+
+type DiagnosticCode {
+  id: ID!
+  vehicleId: ID!
+  code: String!
+  description: String!
+  system: String
+  severity: AlertSeverity!
+  detectedAt: DateTime!
+  clearedAt: DateTime
+  isActive: Boolean!
+}
+
+type DTCCode {
+  code: String!
+  description: String!
+  system: String!
+  possibleCauses: [String!]
+  recommendedAction: String
+}
+
+type Recall {
+  id: ID!
+  nhtsaCampaignNumber: String
+  vehicleId: ID
+  component: String!
+  summary: String!
+  consequence: String
+  remedy: String
+  announcedDate: Date!
+  remedyAvailable: Boolean!
+}
+
+# ─────────────────────────────────────────────
+# Dealer and Inventory
+# ─────────────────────────────────────────────
+
+type Dealer {
+  id: ID!
+  name: String!
+  address: String!
+  city: String!
+  state: String
+  country: String!
+  postalCode: String
+  coordinate: GPSCoordinate
+  phone: String
+  websiteUrl: URL
+  isFordCertified: Boolean!
+  isEvCertified: Boolean!
+  serviceHours: String
+  salesHours: String
+}
+
+type DealerLocator {
+  results: [Dealer!]!
+  totalResults: Int!
+  searchRadius: Float
+  searchCoordinate: GPSCoordinate
+}
+
+type DealerInventory {
+  dealer: Dealer!
+  newVehicles: [NewVehicle!]
+  usedVehicles: [UsedVehicle!]
+  lastUpdated: DateTime!
+}
+
+type NewVehicle {
+  id: ID!
+  vin: VIN!
+  dealer: Dealer!
+  vehicle: Vehicle!
+  msrp: Float!
+  currency: String!
+  color: Color
+  options: [String!]
+  inTransit: Boolean!
+  availableDate: Date
+}
+
+type UsedVehicle {
+  id: ID!
+  vin: VIN!
+  dealer: Dealer!
+  vehicle: Vehicle!
+  condition: VehicleCondition!
+  price: Float!
+  currency: String!
+  mileageKm: Kilometers!
+  color: Color
+  certifiedPreOwned: Boolean!
+  inspectionPassed: Boolean
+  availableDate: Date
+}
+
+# ─────────────────────────────────────────────
+# Authentication / API Access
+# ─────────────────────────────────────────────
+
+type APIKey {
+  id: ID!
+  name: String!
+  keyPrefix: String!
+  scopes: [String!]!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  isActive: Boolean!
+}
+
+type Token {
+  tokenType: TokenType!
+  accessToken: String!
+  refreshToken: String
+  expiresIn: Int!
+  scopes: [String!]!
+  issuedAt: DateTime!
+}
+
+type Webhook {
+  id: ID!
+  url: URL!
+  events: [WebhookEvent!]!
+  vehicleIds: [ID!]
+  secret: String
+  isActive: Boolean!
+  createdAt: DateTime!
+  lastDeliveredAt: DateTime
+  lastResponseCode: Int
+}
+
+# ─────────────────────────────────────────────
+# WLTP Emissions
+# ─────────────────────────────────────────────
+
+type WLTPEmissions {
+  vehicleConfigurationId: ID!
+  vin: VIN
+  co2EmissionsGPerKm: Float!
+  fuelConsumptionLPer100km: Float
+  electricRangeKm: Kilometers
+  combinedRangeKm: Kilometers
+  testCycle: String!
+  certificationDate: Date
+}
+
+# ─────────────────────────────────────────────
+# Root Types
+# ─────────────────────────────────────────────
+
+type Query {
+  vehicle(id: ID!): Vehicle
+  vehicleByVin(vin: String!): Vehicle
+  connectedVehicle(id: ID!): ConnectedVehicle
+  vehicleProfile(id: ID!): VehicleProfile
+  vehicleStatus(vehicleId: ID!): VehicleStatus
+  vehicleLocation(vehicleId: ID!): Location
+  fuelLevel(vehicleId: ID!): FuelLevel
+  odometer(vehicleId: ID!): OdoReading
+  batteryLevel(vehicleId: ID!): BatteryLevel
+  chargeStatus(vehicleId: ID!): ChargeStatus
+  chargeSettings(vehicleId: ID!): ChargeSettings
+  chargingSchedules(vehicleId: ID!): [ChargingSchedule!]
+  chargingLocations(vehicleId: ID!): [ChargingLocation!]
+  evRange(vehicleId: ID!): EVRange
+  evRangeEstimate(vehicleId: ID!): EVRangeEstimate
+  tripHistory(vehicleId: ID!, startDate: Date, endDate: Date): TripHistory
+  tripDetail(tripId: ID!): TripDetail
+  driveHistory(vehicleId: ID!): DriveHistory
+  fuelEfficiency(vehicleId: ID!, periodDays: Int): FuelEfficiency
+  alerts(vehicleId: ID!, includeResolved: Boolean): [VehicleAlert!]
+  maintenanceReminders(vehicleId: ID!): [MaintenanceReminder!]
+  oilChange(vehicleId: ID!): OilChange
+  serviceHistory(vehicleId: ID!): ServiceHistory
+  tireStatus(vehicleId: ID!): TireStatus
+  diagnosticCodes(vehicleId: ID!, activeOnly: Boolean): [DiagnosticCode!]
+  recalls(vehicleId: ID): [Recall!]
+  nearbyChargingStations(coordinate: CoordinateInput!, radiusKm: Float, connectorType: ConnectorType): [ChargingStation!]
+  fordPass(userId: ID!): FordPass
+  dealerLocator(coordinate: CoordinateInput!, radiusKm: Float, isEvCertified: Boolean): DealerLocator
+  dealerInventory(dealerId: ID!): DealerInventory
+  wltpEmissions(vehicleConfigurationId: ID!): WLTPEmissions
+  apiKeys: [APIKey!]
+  webhooks: [Webhook!]
+}
+
+type Mutation {
+  lockVehicle(vehicleId: ID!): CommandResult!
+  unlockVehicle(vehicleId: ID!): CommandResult!
+  remoteStart(vehicleId: ID!, durationMinutes: Int): RemoteStart!
+  remoteStop(vehicleId: ID!): RemoteStop!
+  startCharging(vehicleId: ID!): CommandResult!
+  stopCharging(vehicleId: ID!): CommandResult!
+  updateChargeSettings(vehicleId: ID!, input: ChargeSettingsInput!): ChargeSettings!
+  createChargingSchedule(vehicleId: ID!, input: ChargingScheduleInput!): ChargingSchedule!
+  updateChargingSchedule(scheduleId: ID!, input: ChargingScheduleInput!): ChargingSchedule!
+  deleteChargingSchedule(scheduleId: ID!): Boolean!
+  addChargingLocation(vehicleId: ID!, input: ChargingLocationInput!): ChargingLocation!
+  removeChargingLocation(locationId: ID!): Boolean!
+  sendNavigationRoute(vehicleId: ID!, input: NavigationRouteInput!): NavigationRoute!
+  acknowledgeAlert(alertId: ID!): VehicleAlert!
+  registerWebhook(input: WebhookInput!): Webhook!
+  updateWebhook(webhookId: ID!, input: WebhookInput!): Webhook!
+  deleteWebhook(webhookId: ID!): Boolean!
+  createApiKey(name: String!, scopes: [String!]!): APIKey!
+  revokeApiKey(apiKeyId: ID!): Boolean!
+  refreshToken(refreshToken: String!): Token!
+}
+
+type Subscription {
+  vehicleStatusChanged(vehicleId: ID!): VehicleStatus!
+  locationUpdated(vehicleId: ID!): Location!
+  chargeStatusChanged(vehicleId: ID!): ChargeStatus!
+  alertTriggered(vehicleId: ID!): VehicleAlert!
+  commandCompleted(vehicleId: ID!): CommandResult!
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input CoordinateInput {
+  latitude: Latitude!
+  longitude: Longitude!
+}
+
+input ChargeSettingsInput {
+  targetChargeLevel: Percentage!
+  preferredChargeStartTime: String
+  chargeMode: String
+}
+
+input ChargingScheduleInput {
+  enabled: Boolean!
+  startTime: String!
+  endTime: String
+  daysOfWeek: [String!]!
+  targetChargeLevel: Percentage
+}
+
+input ChargingLocationInput {
+  name: String!
+  coordinate: CoordinateInput!
+  isHome: Boolean!
+  isWork: Boolean!
+}
+
+input NavigationRouteInput {
+  destination: CoordinateInput!
+  waypoints: [CoordinateInput!]
+}
+
+input WebhookInput {
+  url: URL!
+  events: [WebhookEvent!]!
+  vehicleIds: [ID!]
+  secret: String
+}
