@@ -1,0 +1,419 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FordConnect API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://fordconnect.cv.ford.com/common/login",
+      "accessTokenUrl": "https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OAuth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Exchange authorization code for access token, or refresh token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/oauth2/v2.0/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "value": ""
+                },
+                {
+                  "name": "refresh_token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Exchange authorization code for access token, or refresh token"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List vehicles enrolled with the calling FordPass account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1"
+          },
+          "docs": "List vehicles enrolled with the calling FordPass account"
+        },
+        {
+          "info": {
+            "name": "Get vehicle information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get vehicle information"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Commands",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Issue a lock command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/lock",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Issue a lock command"
+        },
+        {
+          "info": {
+            "name": "Check lock command status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/lock/:commandId",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check lock command status"
+        },
+        {
+          "info": {
+            "name": "Issue an unlock command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/unlock",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Issue an unlock command"
+        },
+        {
+          "info": {
+            "name": "Check unlock command status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/unlock/:commandId",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check unlock command status"
+        },
+        {
+          "info": {
+            "name": "Remote start engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/startEngine",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remote start engine"
+        },
+        {
+          "info": {
+            "name": "Remote stop engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/stopEngine",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remote stop engine"
+        },
+        {
+          "info": {
+            "name": "Wake the vehicle from sleep",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/wake",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Wake the vehicle from sleep"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Charging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start charging an EV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/startCharge",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Start charging an EV"
+        },
+        {
+          "info": {
+            "name": "Stop charging an EV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/stopCharge",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Stop charging an EV"
+        },
+        {
+          "info": {
+            "name": "Get EV charge schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/chargeSchedules",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get EV charge schedule"
+        },
+        {
+          "info": {
+            "name": "Get configured departure times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/departureTimes",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get configured departure times"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request a fresh vehicle status snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/status",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request a fresh vehicle status snapshot"
+        },
+        {
+          "info": {
+            "name": "Request vehicle location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/location",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request vehicle location"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get vehicle thumbnail image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/images/thumbnail",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get vehicle thumbnail image"
+        },
+        {
+          "info": {
+            "name": "Get full vehicle image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/images/full",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get full vehicle image"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
