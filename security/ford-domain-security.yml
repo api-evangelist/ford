@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: developer.ford.com
+  https: true
+  tls_cert_error: '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get
+    local issuer certificate (_ssl.c:1082)'
+  hsts: null
+- host: www.ford.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 21 10:48:50 2026 GMT
+  hsts: null
+- host: api.mps.ford.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 14 06:24:55 2026 GMT
+  hsts: null
+domains:
+- domain: ford.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

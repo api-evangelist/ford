@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ford-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://fordconnect.cv.ford.com/common/login
+    tokenUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token
+    scopes: 1
+  description: OAuth 2.0 authorization-code grant brokered through Ford's identity service
+  sources:
+  - openapi/ford-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/ford-openapi.yml
