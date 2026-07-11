@@ -37,6 +37,8 @@ apis:
   description: With this API, authorized external parties can retrieve WLTP values
     based on a specific vehicle configuration.
 common:
+- type: OAuthScopes
+  url: scopes/ford-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/ford
 - type: LinkedIn
