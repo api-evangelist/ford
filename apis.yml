@@ -37,6 +37,8 @@ apis:
   description: With this API, authorized external parties can retrieve WLTP values
     based on a specific vehicle configuration.
 common:
+- type: AgenticAccess
+  url: agentic-access/ford-agentic-access.yml
 - type: DomainSecurity
   url: security/ford-domain-security.yml
 - type: Authentication
