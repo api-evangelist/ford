@@ -3,7 +3,20 @@ name: Ford
 description: Ford is a multinational automotive company that designs, manufactures,
   and sells a wide range of vehicles, including cars, trucks, and SUVs.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ford.png
 access: 3rd-Party
 created: '2025-02-25'
 modified: '2026-04-28'
@@ -24,9 +37,9 @@ apis:
     type: Documentation
   - url: graphql/ford-graphql.md
     type: GraphQL
-  description: FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.)
-    and request vehicle information (e.g., fuel range, tire pressure, etc.) to Ford
-    and Lincoln vehicles.
+  description: >-
+    FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information
+    (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles.
 - aid: ford:ford-wltp-emissions
   name: Ford WLTP Emissions
   tags: []
@@ -34,8 +47,62 @@ apis:
   properties:
   - url: https://developer.ford.com/emissions
     type: Documentation
-  description: With this API, authorized external parties can retrieve WLTP values
-    based on a specific vehicle configuration.
+  description: >-
+    With this API, authorized external parties can retrieve WLTP values based on a specific vehicle configuration.
+- aid: ford:ford-charging-api
+  name: Ford Charging API
+  description: The Charging API from Ford — 4 operation(s) for charging.
+  humanURL: https://developer.ford.com/apis/fordconnect
+  tags:
+  - Charging
+  properties:
+  - type: OpenAPI
+    url: openapi/ford-charging-api-openapi.yml
+- aid: ford:ford-commands-api
+  name: Ford Commands API
+  description: The Commands API from Ford — 7 operation(s) for commands.
+  humanURL: https://developer.ford.com/apis/fordconnect
+  tags:
+  - Commands
+  properties:
+  - type: OpenAPI
+    url: openapi/ford-commands-api-openapi.yml
+- aid: ford:ford-images-api
+  name: Ford Images API
+  description: The Images API from Ford — 2 operation(s) for images.
+  humanURL: https://developer.ford.com/apis/fordconnect
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/ford-images-api-openapi.yml
+- aid: ford:ford-oauth-api
+  name: Ford OAuth API
+  description: The OAuth API from Ford — 1 operation(s) for oauth.
+  humanURL: https://developer.ford.com/apis/fordconnect
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/ford-oauth-api-openapi.yml
+- aid: ford:ford-status-api
+  name: Ford Status API
+  description: The Status API from Ford — 2 operation(s) for status.
+  humanURL: https://developer.ford.com/apis/fordconnect
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/ford-status-api-openapi.yml
+- aid: ford:ford-vehicles-api
+  name: Ford Vehicles API
+  description: The Vehicles API from Ford — 2 operation(s) for vehicles.
+  humanURL: https://developer.ford.com/apis/fordconnect
+  tags:
+  - Vehicles
+  properties:
+  - type: OpenAPI
+    url: openapi/ford-vehicles-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/ford-agentic-access.yml
