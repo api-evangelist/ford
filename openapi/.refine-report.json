@@ -1,0 +1,24 @@
+{
+  "provider": "ford",
+  "sources": [
+    "ford-charging-api-openapi.yml",
+    "ford-commands-api-openapi.yml",
+    "ford-images-api-openapi.yml",
+    "ford-oauth-api-openapi.yml",
+    "ford-status-api-openapi.yml",
+    "ford-vehicles-api-openapi.yml"
+  ],
+  "outputs": [
+    "ford-charging-api-openapi.yml",
+    "ford-commands-api-openapi.yml",
+    "ford-images-api-openapi.yml",
+    "ford-oauth-api-openapi.yml",
+    "ford-status-api-openapi.yml",
+    "ford-vehicles-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
