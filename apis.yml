@@ -26,7 +26,7 @@ tags:
 - Cars
 - Vehicles
 url: https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: ford:fordconnect
   name: FordConnect
