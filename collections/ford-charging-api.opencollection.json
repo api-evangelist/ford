@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FordConnect Charging API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://fordconnect.cv.ford.com/common/login",
+      "accessTokenUrl": "https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Charging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start charging an EV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/startCharge",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Start charging an EV"
+        },
+        {
+          "info": {
+            "name": "Stop charging an EV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/stopCharge",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Stop charging an EV"
+        },
+        {
+          "info": {
+            "name": "Get EV charge schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/chargeSchedules",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get EV charge schedule"
+        },
+        {
+          "info": {
+            "name": "Get configured departure times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/departureTimes",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get configured departure times"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

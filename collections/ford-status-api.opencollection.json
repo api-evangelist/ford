@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FordConnect Charging Status API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://fordconnect.cv.ford.com/common/login",
+      "accessTokenUrl": "https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request a fresh vehicle status snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/status",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request a fresh vehicle status snapshot"
+        },
+        {
+          "info": {
+            "name": "Request vehicle location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/location",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request vehicle location"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

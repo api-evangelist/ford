@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FordConnect Charging Commands API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://fordconnect.cv.ford.com/common/login",
+      "accessTokenUrl": "https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commands",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Issue a lock command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/lock",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Issue a lock command"
+        },
+        {
+          "info": {
+            "name": "Check lock command status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/lock/:commandId",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check lock command status"
+        },
+        {
+          "info": {
+            "name": "Issue an unlock command",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/unlock",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Issue an unlock command"
+        },
+        {
+          "info": {
+            "name": "Check unlock command status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/unlock/:commandId",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "commandId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check unlock command status"
+        },
+        {
+          "info": {
+            "name": "Remote start engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/startEngine",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remote start engine"
+        },
+        {
+          "info": {
+            "name": "Remote stop engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/stopEngine",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remote stop engine"
+        },
+        {
+          "info": {
+            "name": "Wake the vehicle from sleep",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mps.ford.com/api/fordconnect/vehicles/v1/:vehicleId/wake",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Wake the vehicle from sleep"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

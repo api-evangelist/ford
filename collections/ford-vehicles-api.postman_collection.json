@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "c3331c81-95f6-4d56-af43-87fddcc1704a",
+      "name": "Vehicles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d54fbe2b-2a7c-4355-a3e7-1f47bae3b9b7",
+          "name": "List vehicles enrolled with the calling FordPass account",
+          "request": {
+            "name": "List vehicles enrolled with the calling FordPass account",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "fordconnect",
+                "vehicles",
+                "v1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82df65fc-48bc-4cd4-8353-df771c686a7e",
+              "name": "JSON response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "fordconnect",
+                    "vehicles",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 9645.368413699065\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c68fde90-3c8c-45c9-8926-d1f6d93be364",
+          "name": "Get vehicle information",
+          "request": {
+            "name": "Get vehicle information",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "fordconnect",
+                "vehicles",
+                "v1",
+                ":vehicleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4614940-f4fe-4776-a0dd-0888c9d4a3ff",
+              "name": "JSON response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "fordconnect",
+                    "vehicles",
+                    "v1",
+                    ":vehicleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 9645.368413699065\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mps.ford.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://fordconnect.cv.ford.com/common/login"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "34b525e0-234b-4546-a822-4accac950239",
+    "name": "FordConnect Charging Vehicles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Best-effort OpenAPI 3.1 description of the FordConnect API, derived from\nthe public developer page at https://developer.ford.com/apis/fordconnect\nand the public FordConnect simulator at\nhttps://github.com/jamisonderek/ford-connect-sim. The FordConnect API\nallows authorized partners to send vehicle commands (lock, unlock, start,\nstop, charge) and retrieve vehicle status and information for enrolled\nFord and Lincoln vehicles. Authentication uses OAuth 2.0 with an\nauthorization-code grant; access tokens are passed as `Authorization:\nBearer` headers.\n\n\nContact Support:\n Name: Ford Developer",
+      "type": "text/plain"
+    }
+  }
+}

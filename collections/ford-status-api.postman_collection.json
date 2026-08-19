@@ -1,0 +1,255 @@
+{
+  "item": [
+    {
+      "id": "c4877a78-fb19-4939-9d1c-f162b1bb07dc",
+      "name": "Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e81005e4-9e5f-40df-8944-d69cd7875da3",
+          "name": "Request a fresh vehicle status snapshot",
+          "request": {
+            "name": "Request a fresh vehicle status snapshot",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "fordconnect",
+                "vehicles",
+                "v1",
+                ":vehicleId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9fc2061-c5cc-45ed-af49-5284236e70d2",
+              "name": "Command accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "fordconnect",
+                    "vehicles",
+                    "v1",
+                    ":vehicleId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 5096,\n  \"commandStatus\": \"string\",\n  \"commandId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d58d3fba-2328-4bab-ac58-709436a831a8",
+          "name": "Request vehicle location",
+          "request": {
+            "name": "Request vehicle location",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "fordconnect",
+                "vehicles",
+                "v1",
+                ":vehicleId",
+                "location"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e760080e-b7ea-4e69-8980-5bed6c698896",
+              "name": "JSON response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "fordconnect",
+                    "vehicles",
+                    "v1",
+                    ":vehicleId",
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": true,\n  \"key_1\": 9829.859354643886,\n  \"key_2\": 5928.758459758249\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mps.ford.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://fordconnect.cv.ford.com/common/login"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7819f67e-83c9-422b-9ae7-c9dcb559b4a4",
+    "name": "FordConnect Charging Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Best-effort OpenAPI 3.1 description of the FordConnect API, derived from\nthe public developer page at https://developer.ford.com/apis/fordconnect\nand the public FordConnect simulator at\nhttps://github.com/jamisonderek/ford-connect-sim. The FordConnect API\nallows authorized partners to send vehicle commands (lock, unlock, start,\nstop, charge) and retrieve vehicle status and information for enrolled\nFord and Lincoln vehicles. Authentication uses OAuth 2.0 with an\nauthorization-code grant; access tokens are passed as `Authorization:\nBearer` headers.\n\n\nContact Support:\n Name: Ford Developer",
+      "type": "text/plain"
+    }
+  }
+}
