@@ -72,6 +72,8 @@ apis:
   description: The Images API from Ford — 2 operation(s) for images.
   humanURL: https://developer.ford.com/apis/fordconnect
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -81,6 +83,8 @@ apis:
   description: The OAuth API from Ford — 1 operation(s) for oauth.
   humanURL: https://developer.ford.com/apis/fordconnect
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
