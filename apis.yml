@@ -120,6 +120,9 @@ apis:
   - type: OpenAPI
     url: openapi/ford-vehicles-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/ford-capability-edges.yml
+  name: Ford Business Capability Map
 - type: AgenticAccess
   url: agentic-access/ford-agentic-access.yml
 - type: DomainSecurity
