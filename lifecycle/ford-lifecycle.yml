@@ -1,0 +1,124 @@
+generated: '2026-09-10'
+method: probed
+source: >-
+  live probes of every Ford API host this record knows, plus the Ford Developer Programme Terms
+  and Conditions served verbatim by the portal at https://developer.ford.com/assets/i18n/en.json
+summary:
+  status_page: none-found
+  changelog: none-found
+  versioning_policy: none-published
+  deprecation_policy: none — Ford explicitly disclaims advance notice (see policy[] below)
+  sunset_headers: not-observed
+  sla: none-published
+headline_finding: >-
+  api.mps.ford.com — the production host declared in every servers[] block in this repository, and
+  the base URL Ford's own FordConnect documentation has historically used — returned HTTP 503
+  "no healthy upstream" from Apigee (x-glb-version: v2.0, x-from: apigee-na) on every path probed,
+  on three separate attempts on 2026-09-10. A different host, api.vehicle.ford.com, is live and
+  answers 401 to unauthenticated calls on real FordConnect v3 paths; that host is named in Ford's
+  own account-linking bundle at fordconnect.cv.ford.com. Read together with the 404 on
+  developer.ford.com/apis/fordconnect, the FordConnect surface this repository describes appears to
+  have moved or been retired at the documented address. This is a probe result, not a Ford
+  announcement — Ford publishes no deprecation notice, changelog or status page we could find.
+hosts:
+- host: api.mps.ford.com
+  role: FordConnect base declared in openapi/ servers[]
+  state: unhealthy
+  observations:
+  - url: https://api.mps.ford.com/
+    status: 503
+    body: no healthy upstream
+    attempts: 3
+    checked: '2026-09-10'
+  - url: https://api.mps.ford.com/api/fordconnect/vehicles/v1
+    status: 503
+    body: no healthy upstream
+    checked: '2026-09-10'
+- host: api.vehicle.ford.com
+  role: live FordConnect API host (found in Ford's fordconnect.cv.ford.com login bundle)
+  state: live, authenticated
+  observations:
+  - url: https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles
+    status: 401
+    checked: '2026-09-10'
+  - url: https://api.vehicle.ford.com/api/fordconnect/consent/v1/client
+    status: 401
+    checked: '2026-09-10'
+  - url: https://api.vehicle.ford.com/api/fordconnect/consent/v1/vehicles/consents
+    status: 401
+    checked: '2026-09-10'
+  - url: https://api.vehicle.ford.com/api/fordconnect/vehicles/v1
+    status: 404
+    checked: '2026-09-10'
+    note: the v1 path shape carried in this repository's specs is not served here; v3 is
+- host: fordconnect.cv.ford.com
+  role: OAuth consent / account linking
+  state: live
+  observations:
+  - url: https://fordconnect.cv.ford.com/common/login
+    status: 200
+    checked: '2026-09-10'
+- host: developer.ford.com
+  role: developer portal
+  state: live
+  observations:
+  - url: https://developer.ford.com/apis
+    status: 200
+    checked: '2026-09-10'
+  - url: https://developer.ford.com/apis/fordconnect
+    status: 404
+    checked: '2026-09-10'
+    note: the per-API documentation deep link this repository has carried since 2025 no longer resolves
+  - url: https://developer.ford.com/emissions
+    status: 200
+    checked: '2026-09-10'
+versioning:
+  scheme: path-segment
+  observed:
+  - v1 (consent, Alexa/Google user settings)
+  - v3 (vehicleinfo)
+  note: >-
+    Ford versions FordConnect in the URL path. No versioning policy, support window or migration
+    guide is published on any anonymously reachable Ford page.
+policy:
+- id: modification-without-notice
+  title: Changes to Agreement Terms and Website Content
+  statement: >-
+    "Ford reserves the right to modify the content on the Website, the Documentation, or the
+    Materials without prior notice, at any time and Your continued use is Your acknowledgement of,
+    and agreement to, such modifications."
+  citation: Ford Developer Programme Terms and Conditions, section 11.2
+  source: https://developer.ford.com/assets/i18n/en.json
+  effect: Ford contractually disclaims advance notice of breaking documentation or API change.
+- id: termination-without-notice
+  title: Term, Termination, and Modification
+  statement: >-
+    "Ford is entitled to terminate this Agreement and access to the Website at Ford's discretion
+    with or without advance notice to You."
+  citation: Ford Developer Programme Terms and Conditions, section 13.1
+  source: https://developer.ford.com/assets/i18n/en.json
+  effect: Access to the API may be withdrawn from an individual developer without notice.
+- id: no-support-obligation
+  title: Support Services
+  statement: >-
+    "Ford may, but is under no obligation to, offer various forms of support to aid in the
+    development of Your Digital Products."
+  citation: Ford Developer Programme Terms and Conditions, section 7.1
+  source: https://developer.ford.com/assets/i18n/en.json
+  effect: No support SLA.
+deprecated_operations: []
+searched:
+- what: status page
+  where:
+  - https://developer.ford.com/apis
+  - status.ford.com / status.developer.ford.com (DNS did not resolve)
+  result: none found
+- what: dated changelog / release notes
+  where:
+  - https://developer.ford.com/apis
+  - https://developer.ford.com/about-us
+  result: none found — the portal renders client-side and publishes no changelog route
+- what: Sunset / Deprecation response headers (RFC 8594)
+  where:
+  - https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles
+  result: not present on the 401 response

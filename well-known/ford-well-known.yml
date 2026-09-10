@@ -1,0 +1,148 @@
+generated: '2026-09-10'
+method: probed
+source: live HTTPS probes of every host this record knows (registrable domain + www, the
+  developer portal, every OpenAPI servers[] host, the FordConnect account-linking host, the
+  live FordConnect API host found in Ford's own login bundle, and the Azure AD B2C tenant the
+  FordConnect OAuth flow names as its token endpoint)
+note: >-
+  Exactly one real discovery document was found across every host probed: the OpenID Connect
+  discovery document for Ford's Azure AD B2C consumer tenant, which is the identity provider
+  the FordConnect OAuth authorization-code flow actually uses. It is a legitimate different-host
+  case — Ford runs its consumer identity on its own B2C tenant
+  (dah2vb2cprod / 914d88b1-3523-4bf6-9be4-1b96b4f6f919) hosted on Microsoft's b2clogin.com, and
+  that exact token endpoint is the one declared in Ford's FordConnect OAuth configuration and
+  in the fordconnect.cv.ford.com login bundle. Every /.well-known/ path on every ford.com host
+  returned 404 (developer.ford.com answers 404 with its Angular shell body, 12,774 bytes — an
+  SPA catch-all, not a document) or was unreachable. api.mps.ford.com — the production host
+  declared in the FordConnect servers[] block — answered 503 "no healthy upstream" from Apigee
+  on every path, on three separate attempts. www.ford.com and the other Akamai-fronted ford.com
+  hosts terminated our HTTP/2 connections (bot mitigation), so those rows are recorded as
+  unreachable rather than absent.
+hosts:
+- host: dah2vb2cprod.b2clogin.com
+  role: OAuth 2.0 / OIDC authorization server for FordConnect (Ford's Azure AD B2C tenant)
+  documents:
+  - path: /914d88b1-3523-4bf6-9be4-1b96b4f6f919/B2C_1A_signup_signin_common/v2.0/.well-known/openid-configuration
+    status: 200
+    file: ford-openid-configuration.json
+    content_type: application/json
+    note: real OIDC discovery document; issuer https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/v2.0/
+  - path: /914d88b1-3523-4bf6-9be4-1b96b4f6f919/v2.0/.well-known/openid-configuration
+    status: 404
+    file: null
+    note: the policy-qualified path above is required; the bare tenant path is not served
+- host: developer.ford.com
+  role: Ford Developer Marketplace (developer portal, Angular SPA on Google Frontend)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+  - path: /robots.txt
+    status: 404
+    file: null
+  - path: /sitemap.xml
+    status: 404
+    file: null
+- host: api.mps.ford.com
+  role: FordConnect production host declared in openapi/ servers[]
+  documents:
+  - path: /.well-known/security.txt
+    status: 503
+    file: null
+    note: 'Apigee edge returned "no healthy upstream" (x-from: apigee-na) for every path, three attempts'
+  - path: /.well-known/openid-configuration
+    status: 503
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 503
+    file: null
+  - path: /.well-known/api-catalog
+    status: 503
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 503
+    file: null
+  - path: /.well-known/agent.json
+    status: 503
+    file: null
+  - path: /llms.txt
+    status: 503
+    file: null
+- host: api.vehicle.ford.com
+  role: live FordConnect API host named in Ford's own fordconnect.cv.ford.com login bundle
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+- host: fordconnect.cv.ford.com
+  role: FordConnect account-linking / OAuth consent host
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+- host: developers.saapi.ford.com
+  role: Ford SA API Developer Portal (Microsoft Entra ID gated)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /llms.txt
+    status: 404
+    file: null
+- host: www.ford.com
+  role: corporate website
+  documents:
+  - path: /.well-known/security.txt
+    status: 0
+    file: null
+    note: connection terminated by the edge (HTTP/2 INTERNAL_ERROR) — bot mitigation, not a 404
+  - path: /robots.txt
+    status: 0
+    file: null
+    note: connection terminated by the edge (HTTP/2 INTERNAL_ERROR) — bot mitigation, not a 404
+- host: ford.com
+  role: registrable domain
+  documents:
+  - path: /.well-known/security.txt
+    status: 0
+    file: null
+    note: connection timed out at the edge — unreachable, not a recorded absence

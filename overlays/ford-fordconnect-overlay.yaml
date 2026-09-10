@@ -1,0 +1,77 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the FordConnect description
+  version: 1.0.0
+x-generated: '2026-09-10'
+x-method: generated
+x-source: >-
+  Live probes of Ford's FordConnect hosts on 2026-09-10, Ford's own OpenID Connect discovery
+  document, and Ford's published data categories at https://developer.ford.com/assets/i18n/en.json
+x-extends: openapi/_original/ford-openapi.yml
+x-note: >-
+  This overlay never mutates the underlying description. It records what API Evangelist established
+  by probing, on top of a document that is itself a best-effort third-party description
+  (x-generated-from: documentation) rather than a Ford contract.
+actions:
+- target: $.info
+  update:
+    x-api-evangelist-provenance:
+      base_document: api-evangelist best-effort description, written from Ford documentation
+      ford_publishes_openapi: false
+      swagger_data_endpoint: /v1/api-catalog/apis/ on developer.ford.com, served only to signed-in partner accounts
+      checked: '2026-09-10'
+- target: $.servers
+  update:
+    x-api-evangelist-host-probe:
+      declared: https://api.mps.ford.com
+      declared_status: 503
+      declared_body: no healthy upstream
+      declared_note: Apigee edge (x-from apigee-na); three attempts on 2026-09-10
+      observed_live_host: https://api.vehicle.ford.com
+      observed_live_evidence: >-
+        /api/fordconnect/vehicleinfo/v3/vehicles returned 401 unauthenticated; the host is named in
+        Ford's own fordconnect.cv.ford.com account-linking bundle
+      observed_live_note: >-
+        The live host serves a v3 vehicleinfo shape, not the v1 shape this description carries.
+        servers[] is deliberately NOT rewritten — the declared base is what Ford documented, and the
+        divergence is the finding.
+- target: $.components.securitySchemes.oauth2
+  update:
+    x-api-evangelist-discovery:
+      issuer: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/v2.0/
+      openid_configuration: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/B2C_1A_signup_signin_common/v2.0/.well-known/openid-configuration
+      policy: B2C_1A_signup_signin_common
+      scopes_supported: [openid]
+      note: >-
+        Ford grants API permission as 14 named data categories consented to by the vehicle owner,
+        not as OAuth scope strings. See scopes/ford-scopes.yml.
+- target: $.security
+  update:
+    x-api-evangelist-consent:
+      model: per data category, vehicle-owner consent
+      url: https://fordconnect.cv.ford.com/common/login
+- target: $.paths['/api/fordconnect/vehicles/v1/{vehicleId}/lock'].post
+  update:
+    x-agentic-reversal:
+      reversal: unlock
+      window: not-published
+      human_in_the_loop: required
+- target: $.paths['/api/fordconnect/vehicles/v1/{vehicleId}/unlock'].post
+  update:
+    x-agentic-reversal:
+      reversal: lock
+      window: not-published
+      human_in_the_loop: required
+      consequence: safety-critical
+- target: $.paths['/api/fordconnect/vehicles/v1/{vehicleId}/startEngine'].post
+  update:
+    x-agentic-reversal:
+      reversal: stopEngine
+      window: not-published
+      human_in_the_loop: required
+- target: $.paths['/api/fordconnect/vehicles/v1/{vehicleId}/startCharge'].post
+  update:
+    x-agentic-reversal:
+      reversal: stopCharge
+      window: not-published
+      human_in_the_loop: required

@@ -1,6 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
+x-generated-from: documentation
+x-generated-note: >-
+  Written by API Evangelist from Ford's public developer page and the public FordConnect
+  simulator, as info.description already states. Ford does not publish an OpenAPI. This is a
+  best-effort third-party description, not a Ford contract, and every artifact derived from it
+  inherits that provenance. Marked 2026-09-10 so automated readers see what the prose says.
 info:
-  title: FordConnect Charging OAuth API
+  title: FordConnect Charging O Auth API
   version: '1.0'
   description: 'Best-effort OpenAPI 3.1 description of the FordConnect API, derived from
 

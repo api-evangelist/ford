@@ -1,0 +1,87 @@
+generated: '2026-09-10'
+method: searched
+source: >-
+  npm registry search + registry.npmjs.org metadata, pypi.org/pypi/*/json, rubygems.org API,
+  the Ford Developer Marketplace (developer.ford.com) and Ford's public GitHub organizations
+  (github.com/Ford, github.com/FordLabs)
+summary:
+  official_count: 0
+  community_count: 6
+  finding: >-
+    Ford publishes no first-party client library for FordConnect on any public package registry.
+    Neither github.com/Ford (6 public repositories — autonomous-vehicle datasets, a Git fork and a
+    Hoppscotch fork) nor github.com/FordLabs (8 public repositories, mostly deprecated internal
+    tooling) contains an API SDK. Every package below is community-authored and reverse-engineered
+    against Ford's partner API; none is first-party and none should be read as Ford-supported.
+    Two of the six have not shipped a release in over two years, and the newest, iobroker.ford,
+    tracks the FordPass mobile API rather than the FordConnect partner API.
+official_sdks: []
+packages:
+- name: iobroker.ford
+  registry: npm
+  url: https://www.npmjs.com/package/iobroker.ford
+  repository: https://github.com/TA2k/ioBroker.ford
+  official: false
+  language: JavaScript
+  version: 2.0.1
+  published: '2026-07-26'
+  description: ioBroker adapter for Ford vehicles; community-maintained, tracks the FordPass mobile API.
+- name: '@tally/fordconnect-node-red'
+  registry: npm
+  url: https://www.npmjs.com/package/@tally/fordconnect-node-red
+  repository: https://github.com/vsubbotskyy/fordConnect-node-red
+  official: false
+  language: JavaScript
+  version: 1.1.2
+  published: '2024-09-25'
+  description: Node-RED nodes wrapping the FordConnect API. The only community package that targets the FordConnect partner API by name.
+- name: homebridge-fordpass
+  registry: npm
+  url: https://www.npmjs.com/package/homebridge-fordpass
+  repository: https://github.com/Brandawg93/homebridge-fordpass
+  official: false
+  language: TypeScript
+  version: 2.0.0
+  published: '2024-06-06'
+  description: Homebridge plugin exposing FordPass vehicle controls to HomeKit.
+- name: connected-car
+  registry: npm
+  url: https://www.npmjs.com/package/connected-car
+  repository: https://github.com/ianjwhite99/connected-car-node-sdk
+  official: false
+  language: JavaScript
+  version: 1.3.0
+  published: '2023-08-24'
+  description: Community Node SDK for Ford connected-vehicle endpoints.
+- name: ffpass
+  registry: npm
+  url: https://www.npmjs.com/package/ffpass
+  repository: https://github.com/d4v3y0rk/ffpass-module
+  official: false
+  language: JavaScript
+  version: 1.1.2
+  published: '2023-01-27'
+  description: Community FordPass module.
+- name: fordpass
+  registry: pypi
+  url: https://pypi.org/project/fordpass/
+  repository: https://github.com/clarkd/fordpass-python
+  official: false
+  language: Python
+  version: 0.0.5
+  published: '2021-07-07'
+  description: Community Python client for the FordPass API. No release in over five years.
+registries_checked:
+- registry: npm
+  queries: [fordconnect, fordkit, fordpass, 'ford motor']
+  first_party_hits: 0
+- registry: pypi
+  queries: [fordconnect, ford-connect, fordpass, fordpass-api]
+  first_party_hits: 0
+  note: only 'fordpass' resolves (200) and it is community-authored
+- registry: rubygems
+  queries: [fordconnect, fordpass]
+  first_party_hits: 0
+- registry: github
+  orgs: [Ford, FordLabs]
+  first_party_hits: 0

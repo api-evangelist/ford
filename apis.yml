@@ -1,7 +1,14 @@
 aid: ford
 name: Ford
-description: Ford is a multinational automotive company that designs, manufactures,
-  and sells a wide range of vehicles, including cars, trucks, and SUVs.
+description: 'Ford Motor Company is a multinational automotive manufacturer that designs, builds and sells
+  cars, trucks, SUVs and commercial vehicles, and operates a partner-facing API program through the Ford
+  Developer Marketplace at developer.ford.com. The flagship surface is FordConnect, which lets an approved
+  application read connected-vehicle data and issue vehicle commands to enrolled Ford and Lincoln vehicles,
+  with the vehicle owner''s consent captured as fourteen named data categories in the FordPass account-linking
+  flow. Ford also publishes a WLTP emissions lookup for authorized parties. Access is partner-gated rather
+  than self-serve: applications are registered in a Ford developer account and issued a client id plus
+  two rotating secrets. Ford publishes no OpenAPI, pricing, rate limits, changelog or status page on any
+  surface reachable without signing in.'
 type: Index
 deliveryModel:
   model: saas
@@ -31,27 +38,34 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ford.png
 access: 3rd-Party
 created: '2025-02-25'
-modified: '2026-04-28'
+modified: '2026-09-10'
 position: Consuming
 tags:
 - Automobiles
 - Cars
 - Vehicles
+- Connected Vehicle
+- Automotive
+- Telematics
+- Electric Vehicles
+- Fleet
 url: https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
 - aid: ford:fordconnect
   name: FordConnect
   tags: []
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   properties:
-  - url: https://developer.ford.com/apis/fordconnect
+  - url: https://developer.ford.com/apis
     type: Documentation
-  - url: graphql/ford-graphql.md
-    type: GraphQL
-  description: >-
-    FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information
-    (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles.
+  - type: X-MCPServerCandidate
+    url: mcp/ford-mcp.yml
+  - type: Overlay
+    url: overlays/ford-fordconnect-overlay.yaml
+  description: FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle
+    information (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles.
+  baseURL: https://api.mps.ford.com
 - aid: ford:ford-wltp-emissions
   name: Ford WLTP Emissions
   tags: []
@@ -59,30 +73,32 @@ apis:
   properties:
   - url: https://developer.ford.com/emissions
     type: Documentation
-  description: >-
-    With this API, authorized external parties can retrieve WLTP values based on a specific vehicle configuration.
+  description: With this API, authorized external parties can retrieve WLTP values based on a specific
+    vehicle configuration.
 - aid: ford:ford-charging-api
   name: Ford Charging API
   description: The Charging API from Ford — 4 operation(s) for charging.
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   tags:
   - Charging
   properties:
   - type: OpenAPI
     url: openapi/ford-charging-api-openapi.yml
+  baseURL: https://api.mps.ford.com
 - aid: ford:ford-commands-api
   name: Ford Commands API
   description: The Commands API from Ford — 7 operation(s) for commands.
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   tags:
   - Commands
   properties:
   - type: OpenAPI
     url: openapi/ford-commands-api-openapi.yml
+  baseURL: https://api.mps.ford.com
 - aid: ford:ford-images-api
   name: Ford Images API
   description: The Images API from Ford — 2 operation(s) for images.
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   tags:
   - Image
   tags_raw:
@@ -90,10 +106,11 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ford-images-api-openapi.yml
+  baseURL: https://api.mps.ford.com
 - aid: ford:ford-oauth-api
   name: Ford OAuth API
   description: The OAuth API from Ford — 1 operation(s) for oauth.
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   tags:
   - Authentication
   tags_raw:
@@ -101,24 +118,27 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/ford-oauth-api-openapi.yml
+  baseURL: https://api.mps.ford.com
 - aid: ford:ford-status-api
   name: Ford Status API
   description: The Status API from Ford — 2 operation(s) for status.
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   tags:
   - Status
   properties:
   - type: OpenAPI
     url: openapi/ford-status-api-openapi.yml
+  baseURL: https://api.mps.ford.com
 - aid: ford:ford-vehicles-api
   name: Ford Vehicles API
   description: The Vehicles API from Ford — 2 operation(s) for vehicles.
-  humanURL: https://developer.ford.com/apis/fordconnect
+  humanURL: https://developer.ford.com/apis
   tags:
   - Vehicles
   properties:
   - type: OpenAPI
     url: openapi/ford-vehicles-api-openapi.yml
+  baseURL: https://api.mps.ford.com
 common:
 - type: CapabilityMap
   url: capabilities/ford-capability-edges.yml
@@ -143,6 +163,41 @@ common:
   url: https://www.ford.com/help/privacy/
 - type: Website
   url: https://www.ford.com/
+- type: WellKnown
+  url: well-known/ford-well-known.yml
+- type: Vocabulary
+  url: vocabulary/ford-data-dictionary.yml
+- type: Lifecycle
+  url: lifecycle/ford-lifecycle.yml
+- type: Conformance
+  url: conformance/ford-conformance.yml
+- type: Conventions
+  url: conventions/ford-conventions.yml
+- type: Packages
+  url: packages/ford-packages.yml
+- type: LLMsTxt
+  url: llms/ford-llms.txt
+- type: VulnerabilityDisclosure
+  url: security/ford-vulnerability-disclosure.yml
+- type: Security
+  url: security/ford-vulnerability-disclosure.yml
+- type: Plans
+  url: plans/ford-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ford-rate-limits.yml
+- type: FinOps
+  url: finops/ford-finops.yml
+- type: Documentation
+  url: https://developer.ford.com/apis
+- type: Support
+  url: https://developer.ford.com/contact-us
+- type: Login
+  url: https://developer.ford.com/my-developer-account/my-dashboard
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-10'
+  status: enriched
+  artifacts_added: 12
+  pass: local-v3

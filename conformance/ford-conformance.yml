@@ -1,0 +1,82 @@
+generated: '2026-09-10'
+method: searched
+source: >-
+  Ford's own OpenID Connect discovery document (saved verbatim at
+  well-known/ford-openid-configuration.json) plus the Ford Developer Marketplace content bundle at
+  https://developer.ford.com/assets/i18n/en.json
+summary:
+  asserted: 4
+  conforms: 3
+  domain_standard: none-found
+conformance:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749) authorization code grant
+  conforms: true
+  evidence: >-
+    https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/B2C_1A_signup_signin_common/v2.0/.well-known/openid-configuration
+    (HTTP 200) advertises authorization_endpoint, token_endpoint and response_types_supported
+    including "code"; token_endpoint_auth_methods_supported lists client_secret_post and
+    client_secret_basic.
+  checked: '2026-09-10'
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    A conformant discovery document is served at the policy-qualified
+    /v2.0/.well-known/openid-configuration path, carrying issuer, jwks_uri, scopes_supported
+    ["openid"], subject_types_supported ["pairwise"] and
+    id_token_signing_alg_values_supported ["RS256"].
+  checked: '2026-09-10'
+- id: bearer-token-rfc6750
+  name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+  conforms: true
+  evidence: >-
+    An unauthenticated GET to https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles
+    returned HTTP 401 on 2026-09-10, consistent with bearer-token protection of the FordConnect
+    resource surface.
+  checked: '2026-09-10'
+  note: >-
+    The 401 carried no WWW-Authenticate challenge we could read, so this is conformance to the
+    token model, not to the full challenge semantics.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    No application/problem+json media type appears in any Ford contract or documentation reachable
+    without credentials, and the 401 observed on api.vehicle.ford.com carried an empty body.
+  checked: '2026-09-10'
+domain_standards:
+  searched:
+  - standard: ISO 20078 (Extended Vehicle "ExVe" web services)
+    result: not-declared
+    note: >-
+      ISO 20078/20080 are the automotive domain standards for third-party access to in-vehicle
+      data. Ford names neither in any anonymously reachable page, and its FordConnect resource
+      shapes (/api/fordconnect/vehicleinfo/v3/...) are proprietary rather than ExVe-shaped.
+  - standard: COVESA / VSS (Vehicle Signal Specification)
+    result: not-declared
+    note: >-
+      Ford's published data dictionary (136 signals — see vocabulary/ford-data-dictionary.yml) uses
+      its own UPPER_SNAKE_CASE signal names (SPEED, XEV_PLUG_CHARGER_STATUS, TIRE_PRESSURE...) and
+      does not reference the COVESA VSS dot-path tree. The names are recognisably the same domain
+      but are not a declared conformance.
+  - standard: EU Data Act (Regulation (EU) 2023/2854) in-vehicle data access
+    result: referenced-in-flow
+    note: >-
+      Ford's credential-creation flow carries a Data Act certification checkbox — "If I am making a
+      data request under the Data Act, I certify that I am in the EU and agree to these terms" —
+      which is a regulatory gate rather than a technical conformance. Recorded here because it is
+      the one named regime Ford's own API onboarding asks about.
+    evidence: https://developer.ford.com/assets/i18n/en.json
+  result: >-
+    No domain standard is declared by a Ford contract. Reward-only check — recorded as absent, not
+    as a failure.
+compliance:
+  certifications_published: none-found
+  searched:
+  - https://developer.ford.com/apis
+  - https://developer.ford.com/about-us
+  - trust.ford.com (DNS did not resolve)
+  note: >-
+    No SOC 2 / ISO 27001 / PCI / FedRAMP claim and no trust center were found on any anonymously
+    reachable Ford developer surface, so no Compliance pointer is emitted.

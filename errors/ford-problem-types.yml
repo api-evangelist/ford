@@ -1,0 +1,38 @@
+generated: '2026-09-10'
+method: none
+source: >-
+  searched Ford's developer surface and derived against the OpenAPI files in this repository;
+  neither yielded an error catalog
+format: unknown
+problem_type_count: 0
+note: >-
+  Ford publishes no error-code reference, error envelope or problem-type registry on any surface
+  reachable without credentials. Deriving one was also not possible: the OpenAPI files in openapi/
+  declare only 200 and 202 responses across all 18 operations — they contain no 4xx or 5xx response
+  at all — and they are in any case an API Evangelist best-effort description rather than a Ford
+  contract. No ErrorCatalog pointer is emitted from this file, because a catalog with zero entries
+  is a recorded absence, not a published artifact.
+observed_status_codes:
+- status: 401
+  url: https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles
+  body: empty
+  content_type: text/html
+  checked: '2026-09-10'
+- status: 404
+  url: https://api.vehicle.ford.com/api/fordconnect/vehicles/v1
+  body: empty
+  checked: '2026-09-10'
+- status: 503
+  url: https://api.mps.ford.com/
+  body: 'no healthy upstream'
+  content_type: text/plain
+  checked: '2026-09-10'
+  note: Apigee edge error, not a Ford application error
+searched:
+- url: https://developer.ford.com/apis
+  status: 200
+  result: no error reference
+- url: https://developer.ford.com/assets/i18n/en.json
+  status: 200
+  result: portal content bundle carries UI-level error strings only, no API error codes
+problem_types: []

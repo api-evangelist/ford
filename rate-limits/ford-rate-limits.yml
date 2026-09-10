@@ -4,43 +4,41 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Ford
 providerId: ford
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+modified: '2026-09-10'
+generated: '2026-09-10'
+method: searched
+reconciled: true
 tags:
   - Automobiles
   - Connected Vehicle
   - Rate Limiting
-description: Ford's Developer Marketplace does not publish numeric API rate limits. Throttles are sized per partner agreement and per-vehicle data-fetch policies (e.g. minimum poll intervals on telemetry endpoints to protect vehicle modems and battery). Standard 429/503 conventions are expected.
-notes: No public RPS/RPM at developer.ford.com. Vehicle-touching endpoints typically enforce minimum polling intervals (commonly tens of seconds) to protect TCU/modem; exact numbers per partnership.
+description: >-
+  Ford publishes no numeric rate limits for its APIs, and no rate-limit response headers were
+  observed. Nothing in the Ford Developer Marketplace's own content bundle states a request-per-
+  second, per-minute or per-day figure, a burst allowance, a quota, or a minimum polling interval.
+  An unauthenticated call to a live FordConnect endpoint returned a bare 401 carrying no
+  X-RateLimit-*, RateLimit-* or Retry-After header, so we have no runtime signal to record either.
+notes: >-
+  Replaces a 2026-05-04 bulk-sweep scaffold that asserted a per-partner throttle and a per-vehicle
+  "minimum poll interval enforced to protect TCU/modem". Those rows described what a connected-
+  vehicle API typically does, not what Ford publishes; neither was verifiable and both have been
+  removed. limit_count: 0 is the honest measurement.
+limit_count: 0
+headers: {}
+responseCodes: {}
 sources:
-  - https://developer.ford.com/
   - https://developer.ford.com/apis
-responseCodes:
-  throttled: 429
-  serviceUnavailable: 503
-limits:
-  - name: Per-partner API throttle
-    scope: partner/api-key
-    metric: varies
-    limit: per-partner agreement; not publicly published
-    applies:
-      - Ford Connected Vehicle API
-      - Ford FordPass API
-      - Ford Dealer / Fleet API
-  - name: Per-vehicle telemetry poll minimum
-    scope: vehicle
-    metric: minimum_poll_interval
-    limit: enforced per endpoint to protect TCU/modem; not publicly published
-    applies:
-      - Ford Connected Vehicle Telemetry
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter on 429/5xx and honor Retry-After when present.
-  - name: Vehicle-Touch Throttling
-    description: Endpoints that wake or query the vehicle TCU enforce minimum poll intervals to protect 12V battery and modem; subscribe to webhooks/streaming where available rather than polling.
-  - name: Customer Consent
-    description: Per-VIN access is gated by the vehicle owner's consent on FordPass; revoked consent terminates throttling allocation immediately.
-maintainers: []
+  - https://developer.ford.com/assets/i18n/en.json
+probed:
+  - url: https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles
+    status: 401
+    rate_limit_headers: none
+    retry_after: absent
+    checked: '2026-09-10'
+  - url: https://api.mps.ford.com/api/fordconnect/vehicles/v1
+    status: 503
+    rate_limit_headers: none
+    checked: '2026-09-10'
+    note: host returns "no healthy upstream" from Apigee; nothing observable
+limits: []
+policies: []

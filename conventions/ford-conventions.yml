@@ -1,0 +1,107 @@
+generated: '2026-09-10'
+method: derived
+source: >-
+  derived from live probes of Ford's FordConnect hosts, Ford's own portal content bundle
+  (https://developer.ford.com/assets/i18n/en.json), well-known/ford-openid-configuration.json and
+  the OpenAPI descriptions in this repository
+x-source-caveat: >-
+  The OpenAPI files in openapi/ are an API Evangelist best-effort description written from Ford's
+  public developer page, not a contract Ford publishes. Anything below that could only come from
+  those files is marked confidence: low and is NOT asserted as a Ford convention.
+authentication:
+  style: OAuth 2.0 authorization code (Azure AD B2C) + Bearer JWT
+  consent: per data category, granted by the vehicle owner in the FordPass account-linking flow
+  credential_rotation: two concurrent client secrets with independent expiry dates
+  cross_link: authentication/ford-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  note: >-
+    No Idempotency-Key header, request-id replay window, or duplicate-suppression rule is documented
+    on any anonymously reachable Ford surface. This matters more here than for a typical API: the
+    FordConnect write surface issues physical vehicle commands (lock, unlock, remote start, remote
+    stop, start/stop charge). Ford's documented pattern is a two-step command handshake — the write
+    returns a command id and the caller polls a status endpoint — which gives an agent a way to
+    OBSERVE the outcome but not a way to guarantee a retried command fires once. Absent replay
+    protection, a retried remote-start is a second remote-start.
+  searched:
+  - https://developer.ford.com/apis
+  - https://developer.ford.com/assets/i18n/en.json
+reversibility:
+  grade: documented
+  applies: true
+  note: >-
+    Every mutating FordConnect operation named in Ford's own data-category descriptions has a
+    natural inverse, and Ford names the pairs itself ("Commands to interact with the vehicle, such
+    as lock and unlock"; "Dynamic charging vehicle's data includes start charging, stop charging,
+    set vehicle home"). What Ford does NOT publish anywhere reachable is a WINDOW — how long a
+    command remains reversible, what happens if the inverse is issued while the first is still
+    executing, or whether a command can be cancelled before the vehicle acts on it. Grade is
+    therefore `documented` (reversal path exists) and not `verified` (no stated window). No window
+    is asserted here, because inventing one for a physical vehicle command is the error that could
+    cost a user real money or safety.
+  operations:
+  - action: lock
+    reversal: unlock
+    window: not-published
+    source: https://developer.ford.com/assets/i18n/en.json
+  - action: unlock
+    reversal: lock
+    window: not-published
+    source: https://developer.ford.com/assets/i18n/en.json
+  - action: start engine (remote start)
+    reversal: stop engine
+    window: not-published
+    note: Ford's own remote-start feature times out on the vehicle side, but no API-side duration is published.
+  - action: start charge
+    reversal: stop charge
+    window: not-published
+    source: https://developer.ford.com/assets/i18n/en.json
+  - action: grant data-category consent
+    reversal: revoke consent in the FordPass account-linking surface
+    window: revocable at any time by the vehicle owner
+    source: https://fordconnect.cv.ford.com/common/login
+dry_run_mode:
+  supported: unknown
+  note: No sandbox, simulator or test mode is published by Ford; see sandbox findings in lifecycle/ford-lifecycle.yml.
+pagination:
+  style: not-published
+  params: []
+  response_fields: []
+  note: No pagination convention is documented on any anonymously reachable Ford surface.
+versioning:
+  style: path-segment
+  observed: [v1, v3]
+  policy: none-published
+  cross_link: lifecycle/ford-lifecycle.yml
+error_envelope:
+  shape: not-published
+  problem_json: false
+  note: >-
+    A live unauthenticated call returned a bare HTTP 401 with an empty body. No error envelope,
+    error-code registry or problem+json media type is published.
+  cross_link: errors/ford-problem-types.yml
+rate_limit_signaling:
+  headers_observed: none
+  status_on_exhaustion: not-published
+  cross_link: rate-limits/ford-rate-limits.yml
+request_tracing:
+  header: not-published
+async_command_pattern:
+  present: true
+  confidence: low
+  description: >-
+    Vehicle commands are issued asynchronously — the write returns a command identifier and the
+    caller polls a per-command status resource until it resolves.
+  note: >-
+    confidence low: this pattern is described in the API Evangelist best-effort OpenAPI in
+    openapi/, which was written from Ford's public developer page rather than published by Ford.
+    It is recorded because it materially changes how an agent must call this API, and flagged
+    because Ford does not restate it anywhere we can reach anonymously.
+metadata_fields:
+  supported: not-published
+field_expansion:
+  supported: not-published

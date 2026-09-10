@@ -4,79 +4,42 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Ford
 providerId: ford
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+modified: '2026-09-10'
+generated: '2026-09-10'
+method: searched
+reconciled: true
 tags:
   - Automobiles
   - Cars
   - Connected Vehicle
   - Vehicles
-description: Ford operates a Developer Marketplace at developer.ford.com offering APIs for connected-vehicle data, FordPass, vehicle telemetry, and dealer/fleet integrations. Access requires partner-program approval; pricing is partner-negotiated and not publicly listed. Ford has historically also worked with intermediaries (Smartcar, High Mobility) for third-party access.
-notes: developer.ford.com requires JavaScript and partner sign-up. No public dollar pricing. Scaffold trimmed to a sandbox + partner-licensed model.
+  - Pricing
+description: >-
+  Ford publishes no plans and no prices for its APIs. The Ford Developer Marketplace at
+  developer.ford.com has no pricing route at all — there is no /pricing, /plans or /plan page in
+  the application's route table, and no price appears anywhere in the portal's own content bundle.
+  Access to FordConnect is obtained by registering an application in the developer account,
+  selecting data categories and being issued credentials; commercial terms, where they exist, are
+  set in a partner agreement that is not public. The Ford Developer Programme Terms and Conditions
+  reserve the right to start charging for access without notice ("Ford reserves the right to charge
+  a fee for access and use of the Materials without advance notice to You", section 13.1), which
+  confirms that no published price schedule exists today.
+notes: >-
+  Replaces a 2026-05-04 bulk-sweep scaffold that asserted a named "Developer / Sandbox" freemium
+  tier at $0.00. That tier is not published by Ford and was not verifiable; it has been removed
+  rather than carried forward. An honest zero is the measurement.
+plan_count: 0
 sources:
-  - https://developer.ford.com/
   - https://developer.ford.com/apis
-  - https://developer.ford.com/use-cases
-plans:
-  - id: ford-developer
-    name: Developer / Sandbox
-    type: freemium
-    description: Developer-portal access for evaluating Ford APIs (FordPass, vehicle data, dealer/fleet) in a sandbox environment. Requires partner-program registration; not for production access to live vehicles.
-    entries:
-      - label: Sandbox Access
-        description: Non-production sandbox access via developer.ford.com partner program
-        name: sandbox_access
-        type: flat
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://developer.ford.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Developer Portal Documentation
-      - name: Sandbox Credentials
-      - name: Sample Vehicle Data
-  - id: ford-partner
-    name: Partner / Production
-    type: enterprise
-    description: Production Ford API access for approved partners (insurance, fleet, mobility, OEM ecosystem). Pricing is negotiated per partnership; access governed by Ford's connected-vehicle data agreements and customer-consent workflow.
-    entries:
-      - label: API Access
-        description: Production API access; per-vehicle, per-call, or per-data-type pricing per partnership agreement
-        name: api_access
-        type: usage-based
-        metric: varies
-        limit: -1
-        timeFrame: usage
-        geo: global
-        domains:
-          - https://api.mps.ford.com
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-      - label: Per-Vehicle Connected Data
-        description: Optional per-vehicle subscription for streaming telemetry / status data
-        name: vehicle_subscription
-        type: subscription
-        metric: vehicle
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: Production API Access
-      - name: Connected Vehicle Data
-      - name: Customer-Consent Workflow
-      - name: Webhook / Streaming Telemetry
-      - name: Named Partner Manager
-maintainers: []
+  - https://developer.ford.com/assets/i18n/en.json
+searched:
+  - url: https://developer.ford.com/apis
+    status: 200
+    result: API catalog page; no pricing
+  - url: https://developer.ford.com/pricing
+    status: 404
+    result: no such route
+  - url: https://developer.ford.com/assets/i18n/en.json
+    status: 200
+    result: full portal content bundle; contains no price, plan, tier or quota figure
+plans: []

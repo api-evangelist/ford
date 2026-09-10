@@ -1,18 +1,168 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/ford-openapi.yml
+generated: '2026-09-10'
+method: searched
+source: https://developer.ford.com/assets/i18n/en.json
+docs: https://developer.ford.com/apis
+note: 'Ford does not publish a conventional OAuth scope string list. Authorization on FordConnect is granted
+  as DATA CATEGORIES: an application declares the categories it needs on the ''API & Scope Info'' step
+  of credential creation (''Data categories in scope'', ''At least one Data Category must be selected''),
+  and the vehicle owner consents to those categories in the FordPass account-linking flow. The categories
+  below are Ford''s own, harvested verbatim from the developer portal. The OIDC layer itself advertises
+  only the ''openid'' scope — confirmed from Ford''s own Azure AD B2C discovery document — so the category
+  list, not an OAuth scope string, is the real permission surface. The single ''access'' scope previously
+  recorded here was derived from an API Evangelist documentation-derived OpenAPI, not from Ford.'
 schemes:
 - name: oauth2
-  source: openapi/ford-openapi.yml
-  flows:
-  - flow: authorizationCode
-    authorizationUrl: https://fordconnect.cv.ford.com/common/login
-    tokenUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token
-  description: OAuth 2.0 authorization-code grant brokered through Ford's identity service
+  type: oauth2
+  flow: authorizationCode
+  issuer: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/v2.0/
+  authorizationUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/oauth2/v2.0/authorize
+  tokenUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/oauth2/v2.0/token
+  jwks_uri: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/discovery/v2.0/keys
+  policy: B2C_1A_signup_signin_common
+  consent_url: https://fordconnect.cv.ford.com/common/login
+  source: well-known/ford-openid-configuration.json
+oidc_scopes_supported:
+- openid
+permission_model: data-categories
+scope_count: 14
 scopes:
-- scope: access
-  description: Access enrolled vehicles
+- scope: chargingData
+  name: Charging Data
+  description: Information related to the vehicle’s charging process, including voltage, current, charger
+    type, and plug status.
+  kind: data-category
   flows:
   - authorizationCode
+  consent: vehicle owner, via FordPass account linking
   sources:
-  - openapi/ford-openapi.yml
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: drivingData
+  name: Driving Data
+  description: Real-time sensor and driver input data, such as acceleration, pedal position, gear lever,
+    and wheel torque.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: evData
+  name: EV Data
+  description: Key electric vehicle metrics, including battery charge level, energy capacity, temperature,
+    and motor voltage.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: tripData
+  name: Trip Data
+  description: Insights into journey specifics, such as fuel consumption, total distance, and electric-only
+    travel range.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: upfitterData
+  name: Specialty Vehicle Manufacturer Data
+  description: High-level details about Specialty Vehicle Manufacturer-installed modules such as input
+    and output status of those modules.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: vehicleData
+  name: Vehicle Data
+  description: Core vehicle performance and system status, including battery levels, fuel, and coolant
+    temperature.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: vehicleHealth
+  name: Vehicle Health
+  description: Diagnostic and maintenance-related information, including tire pressure, oil life, and
+    Diesel exhaust system status.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: vehicleLocation
+  name: Vehicle Location
+  description: Positional and movement data, including GPS coordinates, compass direction, and wheel speed.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: vehicleSecurity
+  name: Vehicle Security
+  description: Status of security systems, including alarms, door locks, and window positions.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: dynamicCharging
+  name: Dynamic Charging
+  description: Dynamic charging vehicle’s data includes start charging, stop charging, set vehicle home.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: vehicleCommands
+  name: Vehicle Commands
+  description: Commands to interact with the vehicle, such as lock and unlock.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: vehicleBasicInfo
+  name: Vehicle Basic Info
+  description: Vehicle identity information including VIN, Make, Model, Year, and Drivetrain configuration.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: customerInfo
+  name: Customer Information
+  description: Name and email address.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+- scope: rewards
+  name: Rewards Information
+  description: Ford/Lincoln Rewards member number and points information.
+  kind: data-category
+  flows:
+  - authorizationCode
+  consent: vehicle owner, via FordPass account linking
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+x-evidence:
+- url: https://developer.ford.com/assets/i18n/en.json
+  http_status: 200
+  fetched: '2026-09-10'
+- url: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/B2C_1A_signup_signin_common/v2.0/.well-known/openid-configuration
+  http_status: 200
+  fetched: '2026-09-10'

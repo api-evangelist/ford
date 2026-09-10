@@ -1,0 +1,119 @@
+generated: '2026-09-10'
+method: derived
+status: candidate
+source: >-
+  Ford publishes no MCP server. This is an API Evangelist candidate tool list derived from Ford's
+  own published data categories (https://developer.ford.com/assets/i18n/en.json) and the FordConnect
+  command surface Ford names in those category descriptions.
+name: Ford FordConnect (candidate)
+description: >-
+  A candidate Model Context Protocol tool surface for FordConnect. NOTHING HERE IS SHIPPED BY FORD.
+  It exists to describe what an MCP server over FordConnect would expose if Ford or a partner built
+  one, and to record that none exists today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: derived
+searched:
+- what: hosted/remote MCP endpoint
+  where:
+  - https://developer.ford.com/mcp (404)
+  - https://mcp.ford.com/mcp (DNS did not resolve)
+  - https://api.vehicle.ford.com/.well-known/agent-card.json (404)
+  - npm registry (queries: fordconnect, fordkit, fordpass, "ford motor")
+  - github.com/Ford, github.com/FordLabs
+  result: none found
+  checked: '2026-09-10'
+consequence_warning: >-
+  The write half of this surface issues physical commands to a real vehicle and Ford publishes no
+  idempotency mechanism (see conventions/ford-conventions.yml). Any real MCP server over FordConnect
+  should require human confirmation on every command tool and must not retry blindly.
+tools:
+- name: list_vehicles
+  category: read
+  description: List the vehicles enrolled with the consenting FordPass account.
+  data_category: Vehicle Basic Info
+  consequence: read
+- name: get_vehicle
+  category: read
+  description: Retrieve identity and configuration for one vehicle (VIN, make, model, year, drivetrain).
+  data_category: Vehicle Basic Info
+  consequence: read
+- name: get_vehicle_status
+  category: read
+  description: Retrieve current vehicle performance and system status, including battery, fuel and coolant temperature.
+  data_category: Vehicle Data
+  consequence: read
+- name: get_vehicle_health
+  category: read
+  description: Retrieve diagnostic and maintenance information — tire pressure, oil life, diesel exhaust system status.
+  data_category: Vehicle Health
+  consequence: read
+- name: get_vehicle_location
+  category: read
+  description: Retrieve positional and movement data — GPS coordinates, compass direction, wheel speed.
+  data_category: Vehicle Location
+  consequence: read
+  sensitivity: high
+- name: get_charge_status
+  category: read
+  description: Retrieve charging process information — voltage, current, charger type, plug status.
+  data_category: Charging Data
+  consequence: read
+- name: get_ev_metrics
+  category: read
+  description: Retrieve electric vehicle metrics — battery charge level, energy capacity, temperature, motor voltage.
+  data_category: EV Data
+  consequence: read
+- name: get_trip_summary
+  category: read
+  description: Retrieve journey specifics — fuel consumption, total distance, electric-only range.
+  data_category: Trip Data
+  consequence: read
+- name: get_security_status
+  category: read
+  description: Retrieve security system status — alarms, door locks, window positions.
+  data_category: Vehicle Security
+  consequence: read
+- name: lock_vehicle
+  category: command
+  description: Lock the vehicle.
+  data_category: Vehicle Commands
+  consequence: physical
+  reversal: unlock_vehicle
+  human_in_the_loop: required
+- name: unlock_vehicle
+  category: command
+  description: Unlock the vehicle.
+  data_category: Vehicle Commands
+  consequence: safety-critical
+  reversal: lock_vehicle
+  human_in_the_loop: required
+- name: start_charge
+  category: command
+  description: Start charging the vehicle.
+  data_category: Dynamic Charging
+  consequence: physical
+  reversal: stop_charge
+  human_in_the_loop: required
+- name: stop_charge
+  category: command
+  description: Stop charging the vehicle.
+  data_category: Dynamic Charging
+  consequence: physical
+  reversal: start_charge
+  human_in_the_loop: required
+- name: set_vehicle_home
+  category: command
+  description: Set the vehicle's home location for dynamic charging.
+  data_category: Dynamic Charging
+  consequence: write
+  human_in_the_loop: required
+tool_count: 14
+note: >-
+  Tool input schemas are deliberately absent. Ford serves its swagger data from
+  /v1/api-catalog/apis/ only to signed-in partner accounts, so the real parameter shapes require
+  authenticated introspection. Guessing them would be fabrication.

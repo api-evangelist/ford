@@ -1,26 +1,117 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/ford-openapi.yml
+generated: '2026-09-10'
+method: searched
+source: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/B2C_1A_signup_signin_common/v2.0/.well-known/openid-configuration
+docs: https://developer.ford.com/apis
 summary:
   types:
-  - http
   - oauth2
+  - openIdConnect
+  - http
   oauth2_flows:
   - authorizationCode
+  primary: OAuth 2.0 authorization code against Ford's own Azure AD B2C consumer tenant, with vehicle-owner
+    consent captured as data categories
+note: Upgraded from derived to searched on 2026-09-10 against Ford's own OpenID Connect discovery document,
+  fetched anonymously. The B2C tenant (dah2vb2cprod, 914d88b1-3523-4bf6-9be4-1b96b4f6f919) is Ford's —
+  it is the exact token endpoint Ford's FordConnect OAuth configuration names, and the same host the fordconnect.cv.ford.com
+  account-linking bundle calls. Credentials (client id + two rotating secrets) are issued from the signed-in
+  Ford Developer Marketplace account dashboard, not self-service at runtime.
 schemes:
 - name: oauth2
   type: oauth2
   flows:
   - flow: authorizationCode
-    authorizationUrl: https://fordconnect.cv.ford.com/common/login
-    tokenUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/oauth2/v2.0/token
-    scopes: 1
-  description: OAuth 2.0 authorization-code grant brokered through Ford's identity service
+    issuer: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/v2.0/
+    authorizationUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/oauth2/v2.0/authorize
+    tokenUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/oauth2/v2.0/token
+    endSessionUrl: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/oauth2/v2.0/logout
+    jwks_uri: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/b2c_1a_signup_signin_common/discovery/v2.0/keys
+    policy: B2C_1A_signup_signin_common
+    scopes_supported:
+    - openid
+    response_types_supported:
+    - code
+    - code id_token
+    - code token
+    - code id_token token
+    - id_token
+    - id_token token
+    - token
+    - token id_token
+    response_modes_supported:
+    - query
+    - fragment
+    - form_post
+    token_endpoint_auth_methods_supported:
+    - client_secret_post
+    - client_secret_basic
+    id_token_signing_alg_values_supported:
+    - RS256
+    subject_types_supported:
+    - pairwise
+    claims_supported:
+    - sub
+    - idp
+    - mtmId
+    - userGuid
+    - locale
+    - jti
+    - client_id
+    - scope
+    - iss
+    - iat
+    - exp
+    - aud
+    - acr
+    - nonce
+    - auth_time
+  description: OAuth 2.0 authorization-code grant brokered through Ford Azure AD B2C; the user consents
+    at https://fordconnect.cv.ford.com/common/login and the app receives a code it exchanges for a bearer
+    token.
   sources:
-  - openapi/ford-openapi.yml
+  - well-known/ford-openid-configuration.json
 - name: bearerAuth
   type: http
   scheme: bearer
   bearerFormat: JWT
+  description: 'The access token from the B2C token endpoint is sent as an Authorization: Bearer header
+    on FordConnect API calls.'
+  evidence: https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles returned HTTP 401 to
+    an unauthenticated GET on 2026-09-10, confirming a live bearer-gated surface.
   sources:
-  - openapi/ford-openapi.yml
+  - probe
+- name: applicationId
+  type: apiKey
+  in: header
+  x-header: Application-Id
+  description: FordConnect additionally requires the partner application id issued in the developer account
+    dashboard alongside the bearer token.
+  confidence: medium
+  note: Recorded from the credential surface Ford describes in the developer dashboard (Client ID / Secret
+    1 / Secret 2 / Expiration). The exact header name is not restated in any anonymously reachable Ford
+    page — treat as medium confidence until an authenticated docs read confirms it.
+  sources:
+  - https://developer.ford.com/assets/i18n/en.json
+credentials:
+  issued_from: https://developer.ford.com/my-developer-account/my-profile
+  model: partner application registration; client id plus two rotatable secrets with an expiration date
+  self_serve: false
+  secret_rotation: two concurrent secrets supported ("Add Second Secret"), each with its own expiration
+  redirect_uris: 1 required, maximum 5; https:// required except http:// for localhost
+  source: https://developer.ford.com/assets/i18n/en.json
+consent:
+  model: vehicle-owner consent per data category, captured in the FordPass/Lincoln Way account-linking
+    flow
+  url: https://fordconnect.cv.ford.com/common/login
+  http_status: 200
+  categories: see scopes/ford-scopes.yml (14 data categories)
+x-evidence:
+- url: https://dah2vb2cprod.b2clogin.com/914d88b1-3523-4bf6-9be4-1b96b4f6f919/B2C_1A_signup_signin_common/v2.0/.well-known/openid-configuration
+  http_status: 200
+  fetched: '2026-09-10'
+- url: https://fordconnect.cv.ford.com/common/login
+  http_status: 200
+  fetched: '2026-09-10'
+- url: https://api.vehicle.ford.com/api/fordconnect/vehicleinfo/v3/vehicles
+  http_status: 401
+  fetched: '2026-09-10'

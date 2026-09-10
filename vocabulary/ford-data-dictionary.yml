@@ -1,0 +1,445 @@
+# Ford Developer Marketplace — FordConnect Data Category Dictionary
+# Harvested verbatim 2026-09-10 from https://developer.ford.com/assets/i18n/en.json
+generated: '2026-09-10'
+method: searched
+source: https://developer.ford.com/assets/i18n/en.json (the Ford Developer Marketplace "Data Category
+  Dictionary", served verbatim by Ford as the portal's own i18n bundle; rendered in the portal at the
+  Data Category Dictionary link on the API & Scope Info step)
+name: FordConnect Data Category Dictionary
+description: Ford's own published dictionary of the connected-vehicle signals a FordConnect application
+  can request. Each term is a vehicle data signal name as it appears in Ford's data categories, with Ford's
+  own definition. Harvested verbatim from the Ford Developer Marketplace; nothing here is paraphrased
+  or invented.
+x-evidence:
+  fetched: '2026-09-10'
+  url: https://developer.ford.com/assets/i18n/en.json
+  http_status: 200
+  content_type: application/json
+term_count: 136
+category_count: 14
+categories:
+- id: chargingData
+  name: Charging Data
+  description: Information related to the vehicle’s charging process, including voltage, current, charger
+    type, and plug status.
+- id: drivingData
+  name: Driving Data
+  description: Real-time sensor and driver input data, such as acceleration, pedal position, gear lever,
+    and wheel torque.
+- id: evData
+  name: EV Data
+  description: Key electric vehicle metrics, including battery charge level, energy capacity, temperature,
+    and motor voltage.
+- id: tripData
+  name: Trip Data
+  description: Insights into journey specifics, such as fuel consumption, total distance, and electric-only
+    travel range.
+- id: upfitterData
+  name: Specialty Vehicle Manufacturer Data
+  description: High-level details about Specialty Vehicle Manufacturer-installed modules such as input
+    and output status of those modules.
+- id: vehicleData
+  name: Vehicle Data
+  description: Core vehicle performance and system status, including battery levels, fuel, and coolant
+    temperature.
+- id: vehicleHealth
+  name: Vehicle Health
+  description: Diagnostic and maintenance-related information, including tire pressure, oil life, and
+    Diesel exhaust system status.
+- id: vehicleLocation
+  name: Vehicle Location
+  description: Positional and movement data, including GPS coordinates, compass direction, and wheel speed.
+- id: vehicleSecurity
+  name: Vehicle Security
+  description: Status of security systems, including alarms, door locks, and window positions.
+- id: dynamicCharging
+  name: Dynamic Charging
+  description: Dynamic charging vehicle’s data includes start charging, stop charging, set vehicle home.
+- id: vehicleCommands
+  name: Vehicle Commands
+  description: Commands to interact with the vehicle, such as lock and unlock.
+- id: vehicleBasicInfo
+  name: Vehicle Basic Info
+  description: Vehicle identity information including VIN, Make, Model, Year, and Drivetrain configuration.
+- id: customerInfo
+  name: Customer Information
+  description: Name and email address.
+- id: rewards
+  name: Rewards Information
+  description: Ford/Lincoln Rewards member number and points information.
+terms:
+- term: XEV_BATTERY_CHARGER_CURRENT_OUTPUT
+  definition: Current of electric charge output to the xEV battery from the charger.
+- term: XEV_BATTERY_CHARGER_ENERGY_OUTPUT
+  definition: Energy of electric charge output to the xEV battery from the charger.
+- term: XEV_BATTERY_CHARGER_VOLTAGE_OUTPUT
+  definition: Voltage of electric charge output to the xEV battery from the charger.
+- term: XEV_BATTERY_CHARGE_DISPLAY_STATUS
+  definition: The display that will show the charging status or the use of charge from a charging station.
+- term: XEV_BATTERY_IO_CURRENT
+  definition: Indicates the input current from the charging circuit to the xEV battery or output current
+    discharged from the xEV battery, measured at the HV battery pack.
+- term: XEV_CHARGE_STATION_COMMUNICATION_STATUS
+  definition: The communication status with a charging station.
+- term: XEV_CHARGE_STATION_POWER_TYPE
+  definition: The charge power type of the connected charging station.
+- term: XEV_EVSE_BATTERY_DC_CURRENT_OUTPUT
+  definition: DC Current of Battery Charger High Voltage Output as measured by the Charger.
+- term: XEV_EVSE_BATTERY_DC_VOLTAGE_OUTPUT
+  definition: DC Voltage of Battery Charger High Voltage Output as measured by the Charger.
+- term: XEV_PLUG_CHARGER_STATUS
+  definition: Status of the electric vehicle's charger plug
+- term: ACCELERATION
+  definition: Acceleration measured across 3 axes as well as the sensor type.
+- term: ACCELERATOR_PEDAL_POSITION
+  definition: The position of the accelerator pedal.
+- term: ACCELERATOR_PEDAL_STATUS
+  definition: Accelerator pedal status (e.g. without driving force, with driving force).
+- term: BRAKE_PEDAL_STATUS
+  definition: Indicates whether the brake pedal is on or off.
+- term: BRAKE_TORQUE
+  definition: Brake torque.
+- term: COLLISION_MITIGATION_BRAKE_STATUS
+  definition: The brake status as a result of a collision mitigation attempt.
+- term: DRIVER_ALERTNESS_WARNING_STATUS
+  definition: Indicates if the driver alertness warning is active or inactive.
+- term: FORWARD_COLLISION_AUDIO_WARNING_STATUS
+  definition: Indicates whether the forward collision audio warning is on or off.
+- term: GEAR_LEVER_POSITION
+  definition: Selected gear lever position.
+- term: HANDS_OFF_WHEEL_WARNING_STATUS
+  definition: 'Indicates whether the hands off the wheel warning system is active or inactive.
+
+
+    Can include tags that indicate whether audio and/or visual warnings are also on or off.'
+- term: HARSH_CORNERING_MAXIMUM_ACCELERATION
+  definition: Maximum lateral acceleration recorded during a harsh cornering event.
+- term: PARKING_BRAKE_STATUS
+  definition: Indicates whether the parking brake is on or off. Brake type is specified with the parking
+    brake type tag.
+- term: SEAT_BELT_STATUS
+  definition: 'Status of the seat belt for a specific seat.
+
+
+    Can include tags that indicate which seat and occupant role, if applicable. Rows start from 1 and
+    increase from front to back. Seats also start from 1 and increase from left to right.'
+- term: SPEED
+  definition: Vehicle speed information. The speed value can also include the uncertainty, and an indication
+    of the source of the speed estimate.
+- term: TORQUE_AT_TRANSMISSION
+  definition: The calculated torque currently being delivered to all the axles at wheel level (sum at
+    all wheels) by the propulsion system.
+- term: TRANSMISSION_GEAR_POSITION (DEPRECATED)
+  definition: Position of transmission gear.
+- term: WHEEL_TORQUE_STATUS
+  definition: Indicates whether wheels are getting torque through the powertrain.
+- term: XEV_BATTERY_ACTUAL_STATE_OF_CHARGE
+  definition: Actual state of charge of the xEV battery expressed as a percentage, which includes upper
+    and lower bounds not included in display of charge.
+- term: XEV_BATTERY_CAPACITY
+  definition: Estimated battery capacity
+- term: XEV_BATTERY_CHARGE_TRANSFER_REASON
+  definition: The reason for the electric (HV) battery transferring energy to the 12V battery.
+- term: XEV_BATTERY_ENERGY_REMAINING
+  definition: Energy remaining in the electrical battery.
+- term: XEV_BATTERY_MAXIMUM_RANGE
+  definition: Estimated battery range at full charge
+- term: XEV_BATTERY_PERFORMANCE_STATUS
+  definition: Performance status of the xEV battery.
+- term: XEV_BATTERY_RANGE
+  definition: Estimated battery range.
+- term: XEV_BATTERY_STATE_OF_CHARGE
+  definition: State of charge of the xEV battery expressed as a percentage.
+- term: XEV_BATTERY_TEMPERATURE
+  definition: The temperature of the electric (HV) battery.
+- term: XEV_BATTERY_TIME_TO_FULL_CHARGE
+  definition: Estimated time to full charge for an xEV battery
+- term: XEV_BATTERY_VOLTAGE
+  definition: Indicates the voltage from the charging circuit to the xEV battery measured at the HV battery
+    pack
+- term: XEV_TRACTION_MOTOR_CURRENT
+  definition: Indicates the current applied to the traction motor on BEV and PHEV vehicles.
+- term: XEV_TRACTION_MOTOR_VOLTAGE
+  definition: Indicates the voltage applied to the traction motor on BEV and PHEV vehicles.
+- term: TRIP_DISTANCE_ACCUMULATED
+  definition: Distance travelled since the last ignition on.
+- term: TRIP_FUEL_CONSUMED
+  definition: Fuel consumed since the last ignition on.
+- term: TRIP_FUEL_CONSUMED_IDLE
+  definition: Fuel consumed while idle since the last ignition on.
+- term: TRIP_FUEL_ECONOMY
+  definition: Fuel economy since the last ignition on.
+- term: TRIP_MAXIMUM_SPEED
+  definition: Maximum speed recorded since the last ignition on.
+- term: TRIP_XEV_BATTERY_CHARGE_REGENERATED
+  definition: Estimated electrical charge that was recovered through regeneration during a trip.
+- term: TRIP_XEV_BATTERY_DISTANCE_ACCUMULATED
+  definition: Distance travelled using only electric energy during a trip.
+- term: TRIP_XEV_BATTERY_RANGE_REGENERATED
+  definition: Estimated battery range that was recovered through regeneration during a trip.
+- term: UPFITTER_ANALOG_INPUT_VOLTAGE
+  definition: 'Upfitter analogue input voltage.
+
+
+    Can include a tag that indicates the upfitter port ID.'
+- term: UPFITTER_DIGITAL_HIGH_OUTPUT_STATUS
+  definition: 'Indicates whether the upfitter digital high output is on or off.
+
+
+    Can include a tag that indicates the upfitter port ID.'
+- term: UPFITTER_DIGITAL_INPUT_STATUS
+  definition: 'Indicates whether the upfitter module digital input is on or off.
+
+
+    Can include a tag that indicates the upfitter port ID.'
+- term: UPFITTER_DIGITAL_LOW_OUTPUT_STATUS
+  definition: 'Indicates whether the upfitter digital low output is on or off.
+
+
+    Can include a tag that indicates the upfitter port ID.'
+- term: UPFITTER_PWM_HBRIDGE_OUTPUT_DUTY_CYCLE_TARGET
+  definition: 'The configured duty cycle of an upfitter H-bridge pin output signal.
+
+
+    If there is a device failure, an ErrorMetric will be present rather than the double percentage value.'
+- term: UPFITTER_PWM_HIGH_OUTPUT_DUTY_CYCLE_TARGET
+  definition: 'The configured duty cycle of an upfitter high-side pin output signal.
+
+
+    If there is a device failure, an ErrorMetric will be present rather than the double percentage value.'
+- term: UPFITTER_PWM_LOW_OUTPUT_DUTY_CYCLE_TARGET
+  definition: 'The configured duty cycle of an upfitter ground signal (low-side) PWM output signal.
+
+
+    If there is a device failure, an ErrorMetric will be present rather than the double percentage value.'
+- term: ABS_STATUS
+  definition: Indicates whether ABS is on or off.
+- term: AMBIENT_TEMP
+  definition: Ambient temperature.
+- term: ANONYMITY_STATUS
+  definition: Indicates anonymity status of vehicleData reported.
+- term: ANTENNA_SOURCE
+  definition: 'Indicates whether the primary or backup antenna is being used.
+
+
+    Can include a tag that indicates the antenna type.'
+- term: BATTERY_LOAD_STATUS
+  definition: Indicates current state of the 12V battery load. Load signifies the power currently being
+    drawn from the battery by accessories within the vehicle
+- term: BATTERY_POWER_SOURCE
+  definition: Indicates whether the battery power source is the main battery or the backup battery.
+- term: BATTERY_STATE_OF_CHARGE
+  definition: 'The state of charge of the 12V battery.
+
+
+    Can include a tag indicating whether the battery is the primary, accessory, or backup battery.'
+- term: BATTERY_STATUS
+  definition: 'Status of the battery.
+
+
+    Can include tags indicating whether the battery is the primary, accessory, or backup battery, as well
+    as the id associated with that battery, if applicable.'
+- term: BATTERY_VOLTAGE
+  definition: '12V vehicle battery voltage.
+
+
+    Can include a tag indicating whether the battery is the primary, accessory, or backup battery.'
+- term: BLIND_SPOT_WARNING_SYSTEM_STATUS
+  definition: 'Indicates whether the blind spot warning system is active or inactive.
+
+
+    Can include a tag that indicates the monitor coverage type.'
+- term: BLUETOOTH_PHONE_SYSTEM_STATUS
+  definition: Status of the Bluetooth phone system and phone call.
+- term: BRAKE_LIGHT_STATUS
+  definition: Indicates whether the brake lights are on or off.
+- term: CLIMATE_CONTROL
+  definition: Information regarding the climate control system. Can include a tag indicating occupant
+    role, if applicable.
+- term: CONFIGURATION
+  definition: Indicates a vehicle configuration. The configuration value specifies the type and value
+    of the configuration.
+- term: DISPLAY_SYSTEM_OF_MEASURE
+  definition: Indicates which measurement system is used for in-vehicle display (metric, imperial).
+- term: DRIVER_ASSIST_SYSTEM_STATUS
+  definition: Indicates whether the driver assistance system is on or off.
+- term: ELECTRONIC_STABILITY_CONTROL_STATUS
+  definition: Indicates whether the electronic stability control is on or off.
+- term: ELECTRONIC_STABILITY_CONTROL_SYSTEM_STATUS
+  definition: Indicates if the Electronic Stability Control System is active or inactive.
+- term: ENGINE_AUTOMATIC_SHUTDOWN_STATUS
+  definition: The engine's automatic shutdown status.
+- term: ENGINE_COOLANT_TEMP
+  definition: Engine coolant temperature.
+- term: ENGINE_EXHAUST_OVERHEAT
+  definition: Indicates whether the engine exhaust is overheating.
+- term: ENGINE_OIL_TEMP
+  definition: Engine oil temperature.
+- term: ENGINE_SPEED
+  definition: Engine speed.
+- term: ENGINE_STATUS
+  definition: 'Status of the engine.
+
+
+    Can include a tag that indicates engine type.'
+- term: FORWARD_COLLISION_WARNING_SYSTEM_STATUS
+  definition: Indicates whether the forward collision warning system is active or inactive.
+- term: FUEL_LEVEL
+  definition: Fuel level percentage.
+- term: FUEL_RANGE
+  definition: Fuel range in double precision, kilometres
+- term: FUEL_VOLUME
+  definition: Fuel volume level in the fuel tank.
+- term: HOOD_STATUS
+  definition: Status of the hood (closed, ajar).
+- term: HYBRID_VEHICLE_MODE_STATUS
+  definition: Operating mode of the hybrid vehicle.
+- term: IGNITION_STATUS
+  definition: Status of the ignition.
+- term: IMPACT_STATUS
+  definition: The system effect an impact had on the vehicle.
+- term: IN_VEHICLE_AUDIO_SYSTEM_VOLUME_LEVEL
+  definition: Indicates volume level of the in-vehicle audio system.
+- term: LANE_KEEPING_ASSIST_SYSTEM_STATUS
+  definition: Indicates that the lane keeping assistance feature is active or inactive.
+- term: LOW_SPEED_COLLISION_MITIGATION_STATUS
+  definition: Indicates whether the vehicle is automatically attempting to mitigate collision by braking.
+- term: LOW_SPEED_COLLISION_MITIGATION_SYSTEM_STATUS
+  definition: Indicates whether the low speed collision mitigation system is active or inactive.
+- term: ODOMETER
+  definition: Odometer value.
+- term: OUTSIDE_TEMPERATURE
+  definition: Outside temperature reported by the vehicle.
+- term: POWER_TAKE_OFF_STATUS
+  definition: Status of the power take off.
+- term: REAR_CROSS_WARNING_SYSTEM_STATUS
+  definition: Indicates whether the rear cross warning system is active or inactive.
+- term: REMOTE_START_COUNTDOWN_TIMER
+  definition: After remote start command issued, if the user does not key-on the vehicle within a set
+    amount of time, the engine will shut down. This value represents how much time remains before the
+    engine shuts down.
+- term: REMOTE_START_DEVICE_STATUS
+  definition: Operating status of the remote start device.
+- term: SEAT_OCCUPANCY_STATUS
+  definition: 'Indicates whether a specific seat is occupied. Can include tags that indicate which seat
+    and occupant role, if applicable.
+
+
+    Rows start from 1 and increase from front to back. Seats also start from 1 and increase from left
+    to right.'
+- term: STOP_START_MODE_STATUS
+  definition: Indicates whether stop start mode is on or off.
+- term: TOTAL_ENGINE_TIME
+  definition: Total engine time over the life of the vehicle.
+- term: TOTAL_ENGINE_TIME_IDLE
+  definition: Total engine idle time over the life of the vehicle.
+- term: TRACTION_CONTROL_STATUS
+  definition: 'Indicates whether the traction control is on or off.
+
+
+    Can include tags that indicate whether other traction control systems are on or off.'
+- term: TRAILER_LIGHT_CHECK_STATUS
+  definition: 'Status of the trailer light check.
+
+
+    Can include a tag indicating if any preconditions have failed in order to complete the trailer light
+    check.'
+- term: TRAILER_SWAY_STATUS
+  definition: Indicates whether trailer sway control is on or off.
+- term: TRANSMISSION_OIL_TEMPERATURE
+  definition: Transmission oil (transmission fluid) temperature.
+- term: VEHICLE_AUDIO_SOURCE
+  definition: Audio input source of the vehicle.
+- term: VEHICLE_LIFE_CYCLE_MODE
+  definition: Indicates life cycle mode of a vehicle.
+- term: VIN
+  definition: The vehicle identification number
+- term: DIAGNOSTIC_TROUBLE_CODE
+  definition: Diagnostic Trouble Codes (DTC) are codes that the vehicle's Onboard Diagnostics (OBD) system
+    uses to capture issues on a vehicle. Each code corresponds to a fault detected in the vehicle, and
+    when the vehicle detects an issue, it activates the corresponding trouble code. Each trouble code
+    consists of one letter and four digits, such as P1234.
+- term: DIESEL_EXHAUST_FILTER_AUTOMATIC_CLEAN_STATUS
+  definition: Operation mode of the automatic filter cleaner.
+- term: DIESEL_EXHAUST_FILTER_MANUAL_REGENERATION_STATUS
+  definition: Manual Diesel Particulate Filter (DPF) regeneration status.
+- term: DIESEL_EXHAUST_FILTER_STATUS
+  definition: 'Status of the diesel exhaust filter.
+
+
+    Can include tags containing the status of related components.'
+- term: DIESEL_EXHAUST_FLUID_LEVEL
+  definition: Diesel exhaust fluid percentage.
+- term: DIESEL_EXHAUST_FLUID_LEVEL_RANGE_REMAINING
+  definition: Estimated distance before the diesel exhaust fluid runs out.
+- term: DIESEL_EXHAUST_FLUID_LEVEL_SPEED_LIMIT
+  definition: Max speed limitation due to the exhaust fluid level.
+- term: DIESEL_EXHAUST_FLUID_LEVEL_STATUS
+  definition: Warning messages about the exhaust fluid level.
+- term: DIESEL_EXHAUST_FLUID_QUALITY_STATUS
+  definition: Quality of exhaust fluid.
+- term: DIESEL_EXHAUST_FLUID_SYSTEM_STATUS
+  definition: Status of the diesel fluid system.
+- term: DIESEL_PARTICULATE_FILTER_SOOT_LEVEL
+  definition: Diesel particulate filter soot percentage level.
+- term: INDICATOR_LIGHT
+  definition: 'Indicator light status information. Includes a Diagnostic Trouble Code (DTC) if applicable.
+
+
+    The SEVERITY_LEVEL tag is used by a small subset of native devices.'
+- term: OIL_LIFE_REMAINING
+  definition: Remaining oil life percentage.
+- term: TIRE_PRESSURE
+  definition: 'Tyre pressure.
+
+
+    A tag indicates which tyre. Tags may also be present reporting the recommended front and rear pressures
+    from the placard.'
+- term: TIRE_PRESSURE_STATUS
+  definition: 'Tyre pressure status (normal, low, alert).
+
+
+    Can include a tag that indicates which tyre.'
+- term: TIRE_PRESSURE_SYSTEM_STATUS
+  definition: Tyre pressure system status.
+- term: WATER_IN_FUEL_STATUS
+  definition: Indicates whether water has been detected in the fuel tank.
+- term: COMPASS_DIRECTION
+  definition: Compass direction (N, NE, E, etc.)
+- term: HEADING
+  definition: Vehicle heading information. The heading value can also include the uncertainty, and an
+    indication of the source of the heading estimate.
+- term: POSITION
+  definition: Current coordinates, heading, and altitude of the vehicle, and related data.
+- term: WHEEL_ROTATION_SPEED
+  definition: 'Wheel rotation speed.
+
+
+    A tag indicates which wheel.'
+- term: YAW_RATE
+  definition: Yaw velocity.
+- term: ALARM_STATUS
+  definition: Status of the vehicle alarm (disarmed, armed, etc).
+- term: DOOR_LOCK_STATUS
+  definition: 'Status of the door lock (locked, unlocked).
+
+
+    Can include tags that indicate which door and occupant role, if applicable.'
+- term: DOOR_PRESENCE_STATUS
+  definition: 'Indicates whether the specified door is present or not.
+
+
+    Can include tags that indicate which door and an occupant role, if applicable. Multiple instances
+    of this signal can be reported for a certain point in time because there can be multiple doors.'
+- term: DOOR_STATUS
+  definition: 'Status of the door (closed, ajar).
+
+
+    Can include tags that indicate which door and an occupant role, if applicable.'
+- term: PANIC_ALARM_STATUS
+  definition: Indicates whether the panic alarm is on or off.
+- term: WINDOW_STATUS
+  definition: 'Window open expressed as a percentage range.
+
+
+    Can include tags that indicate which window and occupant role, if applicable.'
