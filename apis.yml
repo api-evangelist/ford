@@ -44,6 +44,15 @@ tags:
 - Automobiles
 - Cars
 - Vehicles
+- Connected Vehicles
+- Automotive
+- Telematics
+- Electric Vehicles
+- Fleet
+tags_raw:
+- Automobiles
+- Cars
+- Vehicles
 - Connected Vehicle
 - Automotive
 - Telematics
@@ -134,6 +143,8 @@ apis:
   humanURL: https://developer.ford.com/apis
   baseURL: https://api.mps.ford.com
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
