@@ -1,12 +1,6 @@
 openapi: 3.2.0
-x-generated-from: documentation
-x-generated-note: >-
-  Written by API Evangelist from Ford's public developer page and the public FordConnect
-  simulator, as info.description already states. Ford does not publish an OpenAPI. This is a
-  best-effort third-party description, not a Ford contract, and every artifact derived from it
-  inherits that provenance. Marked 2026-09-10 so automated readers see what the prose says.
 info:
-  title: FordConnect Charging Commands API
+  title: FordConnect Commands API
   version: '1.0'
   description: 'Best-effort OpenAPI 3.1 description of the FordConnect API, derived from
 
@@ -14,19 +8,7 @@ info:
 
     and the public FordConnect simulator at
 
-    https://github.com/jamisonderek/ford-connect-sim. The FordConnect API
-
-    allows authorized partners to send vehicle commands (lock, unlock, start,
-
-    stop, charge) and retrieve vehicle status and information for enrolled
-
-    Ford and Lincoln vehicles. Authentication uses OAuth 2.0 with an
-
-    authorization-code grant; access tokens are passed as `Authorization:
-
-    Bearer` headers.
-
-    '
+    https://github.com/jamisonderek/ford-connect-sim.'
   contact:
     name: Ford Developer
     url: https://developer.ford.com/
@@ -49,6 +31,8 @@ paths:
       responses:
         '202':
           $ref: '#/components/responses/Command'
+      operationId: postApiFordconnectVehiclesV1ByVehicleIdLock
+      x-operation-id-source: derived
   /api/fordconnect/vehicles/v1/{vehicleId}/lock/{commandId}:
     parameters:
     - $ref: '#/components/parameters/VehicleId'
@@ -60,6 +44,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Json'
+      operationId: getApiFordconnectVehiclesV1ByVehicleIdLockByCommandId
+      x-operation-id-source: derived
   /api/fordconnect/vehicles/v1/{vehicleId}/unlock:
     parameters:
     - $ref: '#/components/parameters/VehicleId'
@@ -70,6 +56,8 @@ paths:
       responses:
         '202':
           $ref: '#/components/responses/Command'
+      operationId: postApiFordconnectVehiclesV1ByVehicleIdUnlock
+      x-operation-id-source: derived
   /api/fordconnect/vehicles/v1/{vehicleId}/unlock/{commandId}:
     parameters:
     - $ref: '#/components/parameters/VehicleId'
@@ -81,6 +69,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Json'
+      operationId: getApiFordconnectVehiclesV1ByVehicleIdUnlockByCommandId
+      x-operation-id-source: derived
   /api/fordconnect/vehicles/v1/{vehicleId}/startEngine:
     parameters:
     - $ref: '#/components/parameters/VehicleId'
@@ -91,6 +81,8 @@ paths:
       responses:
         '202':
           $ref: '#/components/responses/Command'
+      operationId: postApiFordconnectVehiclesV1ByVehicleIdStartEngine
+      x-operation-id-source: derived
   /api/fordconnect/vehicles/v1/{vehicleId}/stopEngine:
     parameters:
     - $ref: '#/components/parameters/VehicleId'
@@ -101,6 +93,8 @@ paths:
       responses:
         '202':
           $ref: '#/components/responses/Command'
+      operationId: postApiFordconnectVehiclesV1ByVehicleIdStopEngine
+      x-operation-id-source: derived
   /api/fordconnect/vehicles/v1/{vehicleId}/wake:
     parameters:
     - $ref: '#/components/parameters/VehicleId'
@@ -111,20 +105,9 @@ paths:
       responses:
         '202':
           $ref: '#/components/responses/Command'
+      operationId: postApiFordconnectVehiclesV1ByVehicleIdWake
+      x-operation-id-source: derived
 components:
-  parameters:
-    CommandId:
-      name: commandId
-      in: path
-      required: true
-      schema:
-        type: string
-    VehicleId:
-      name: vehicleId
-      in: path
-      required: true
-      schema:
-        type: string
   responses:
     Command:
       description: Command accepted
@@ -146,6 +129,19 @@ components:
           schema:
             type: object
             additionalProperties: true
+  parameters:
+    VehicleId:
+      name: vehicleId
+      in: path
+      required: true
+      schema:
+        type: string
+    CommandId:
+      name: commandId
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2
@@ -160,3 +156,5 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+x-generated-from: documentation
+x-generated-note: Written by API Evangelist from Ford's public developer page and the public FordConnect simulator, as info.description already states. Ford does not publish an OpenAPI. This is a best-effort third-party description, not a Ford contract, and every artifact derived from it inherits that provenance. Marked 2026-09-10 so automated readers see what the prose says.

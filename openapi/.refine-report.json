@@ -1,12 +1,7 @@
 {
   "provider": "ford",
   "sources": [
-    "ford-charging-api-openapi.yml",
-    "ford-commands-api-openapi.yml",
-    "ford-images-api-openapi.yml",
-    "ford-oauth-api-openapi.yml",
-    "ford-status-api-openapi.yml",
-    "ford-vehicles-api-openapi.yml"
+    "_original/ford-openapi.yml"
   ],
   "outputs": [
     "ford-charging-api-openapi.yml",
@@ -16,17 +11,23 @@
     "ford-status-api-openapi.yml",
     "ford-vehicles-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "ford-charging-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ford-commands-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ford-images-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ford-oauth-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ford-status-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ford-vehicles-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ford-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: ford-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "ford-charging-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ford-commands-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ford-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ford-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ford-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ford-vehicles-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
