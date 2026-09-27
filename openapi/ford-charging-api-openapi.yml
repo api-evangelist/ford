@@ -70,6 +70,13 @@ paths:
       operationId: getApiFordconnectVehiclesV1ByVehicleIdDepartureTimes
       x-operation-id-source: derived
 components:
+  parameters:
+    VehicleId:
+      name: vehicleId
+      in: path
+      required: true
+      schema:
+        type: string
   responses:
     Command:
       description: Command accepted
@@ -91,13 +98,6 @@ components:
           schema:
             type: object
             additionalProperties: true
-  parameters:
-    VehicleId:
-      name: vehicleId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     oauth2:
       type: oauth2

@@ -109,6 +109,13 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
+    Json:
+      description: JSON response
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
     Command:
       description: Command accepted
       content:
@@ -122,13 +129,6 @@ components:
                 type: string
               commandId:
                 type: string
-    Json:
-      description: JSON response
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: true
   parameters:
     VehicleId:
       name: vehicleId

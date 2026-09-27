@@ -11,22 +11,19 @@
     "ford-status-api-openapi.yml",
     "ford-vehicles-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "ford-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "superseded outputs removed: ford-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 8 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "ford-charging-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "ford-commands-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "ford-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "ford-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ford-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "ford-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "ford-vehicles-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
