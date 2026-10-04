@@ -44,6 +44,13 @@ paths:
       operationId: getApiFordconnectVehiclesV1ByVehicleId
       x-operation-id-source: derived
 components:
+  parameters:
+    VehicleId:
+      name: vehicleId
+      in: path
+      required: true
+      schema:
+        type: string
   responses:
     Json:
       description: JSON response
@@ -52,13 +59,6 @@ components:
           schema:
             type: object
             additionalProperties: true
-  parameters:
-    VehicleId:
-      name: vehicleId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     oauth2:
       type: oauth2

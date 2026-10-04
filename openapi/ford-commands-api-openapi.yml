@@ -108,27 +108,6 @@ paths:
       operationId: postApiFordconnectVehiclesV1ByVehicleIdWake
       x-operation-id-source: derived
 components:
-  responses:
-    Json:
-      description: JSON response
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: true
-    Command:
-      description: Command accepted
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-              commandStatus:
-                type: string
-              commandId:
-                type: string
   parameters:
     VehicleId:
       name: vehicleId
@@ -142,6 +121,27 @@ components:
       required: true
       schema:
         type: string
+  responses:
+    Command:
+      description: Command accepted
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              commandStatus:
+                type: string
+              commandId:
+                type: string
+    Json:
+      description: JSON response
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
   securitySchemes:
     oauth2:
       type: oauth2
