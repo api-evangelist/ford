@@ -1,4 +1,4 @@
-# Ford (ford)
+# Ford
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,63 +64,158 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Ford is a multinational automotive company that designs, manufactures, and sells a wide range of vehicles, including cars, trucks, and SUVs.
+Ford Motor Company is a multinational automotive manufacturer that designs, builds and sells cars, trucks, SUVs and commercial vehicles, and operates a partner-facing API program through the Ford Developer Marketplace at developer.ford.com. The flagship surface is FordConnect, which lets an approved application read connected-vehicle data and issue vehicle commands to enrolled Ford and Lincoln vehicles, with the vehicle owner's consent captured as fourteen named data categories in the FordPass account-linking flow. Ford also publishes a WLTP emissions lookup for authorized parties. Access is partner-gated rather than self-serve: applications are registered in a Ford developer account and issued a client id plus two rotating secrets. Ford publishes no OpenAPI, pricing, rate limits, changelog or status page on any surface reachable without signing in.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ford/refs/heads/main/apis.yml)
+**Areas:** Automobiles · Cars · Vehicles · Connected Vehicles · Automotive · Telematics · Electric Vehicles · Fleet
 
-## Scope
+## Ford on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Ford is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ford/](https://apis.io/providers/ford/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Automobiles
-- Cars
-- Vehicles
+- [FordConnect](https://apis.io/apis/ford/fordconnect/) — FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information (e.g., fuel range, tire pressure, etc.) to Ford and…
+- [Ford WLTP Emissions](https://apis.io/apis/ford/ford-wltp-emissions/) — With this API, authorized external parties can retrieve WLTP values based on a specific vehicle configuration.
+- [Ford Charging API](https://apis.io/apis/ford/ford-charging-api/) — The Charging API from Ford — 4 operation(s) for charging.
+- [Ford Commands API](https://apis.io/apis/ford/ford-commands-api/) — The Commands API from Ford — 7 operation(s) for commands.
+- [Ford Images API](https://apis.io/apis/ford/ford-images-api/) — The Images API from Ford — 2 operation(s) for images.
+- [Ford Status API](https://apis.io/apis/ford/ford-status-api/) — The Status API from Ford — 2 operation(s) for status.
+- [Ford Vehicles API](https://apis.io/apis/ford/ford-vehicles-api/) — The Vehicles API from Ford — 2 operation(s) for vehicles.
+- [Ford O Auth API](https://apis.io/apis/ford/ford-oauth-api/) — The OAuth API from Ford — 1 operation(s) for oauth.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-25
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### FordConnect
+GraphQL schemas.
 
-FordConnect allows to send vehicle commands (e.g., lock, unlock, etc.) and request vehicle information (e.g., fuel range, tire pressure, etc.) to Ford and Lincoln vehicles.
+- [Moved to /providers/ford/](https://apis.io/graphqls/ford/ford-graphql/)
 
-- **Human URL:** [https://developer.ford.com/apis/fordconnect](https://developer.ford.com/apis/fordconnect)
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://developer.ford.com/apis/fordconnect)
-- [Postman Collection](collections/ford.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ford.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Ford FordConnect (candidate)](https://apis.io/servers/ford/ford-fordconnect-candidate/)
 
-### Ford WLTP Emissions
+#### Agentic access (1)
 
-With this API, authorized external parties can retrieve WLTP values based on a specific vehicle configuration.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://developer.ford.com/emissions](https://developer.ford.com/emissions)
+- [Ford Agentic Access](https://apis.io/agentic-access/ford/ford-agentic-access/)
 
-#### Properties
+#### Collections (7)
 
-- [Documentation](https://developer.ford.com/emissions)
-- [Postman Collection](collections/ford.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ford.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [FordConnect API](https://apis.io/collections/ford/open-ford/)
+- [FordConnect Charging API](https://apis.io/collections/ford/open-ford-charging-api/)
+- [FordConnect Charging Commands API](https://apis.io/collections/ford/open-ford-commands-api/)
+- [FordConnect Charging Images API](https://apis.io/collections/ford/open-ford-images-api/)
+- [FordConnect Charging OAuth API](https://apis.io/collections/ford/open-ford-oauth-api/)
+- [FordConnect Charging Status API](https://apis.io/collections/ford/open-ford-status-api/)
+- [FordConnect Charging Vehicles API](https://apis.io/collections/ford/open-ford-vehicles-api/)
 
-- [GitHub Organization](https://github.com/ford)
-- [LinkedIn](https://www.linkedin.com/company/ford-motor-company)
-- [Portal](https://developer.ford.com/)
-- [Terms of Service](https://www.ford.com/help/terms/)
-- [Privacy Policy](https://www.ford.com/help/privacy/)
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Ford Fordconnect Overlay](https://apis.io/overlays/ford/ford-fordconnect-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Ford Authentication](https://apis.io/security/ford/ford-authentication/)
+- [Ford Domain Security](https://apis.io/security/ford/ford-domain-security/)
+- [Ford Vulnerability Disclosure](https://apis.io/security/ford/ford-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Ford Scopes](https://apis.io/scopes/ford/ford-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Ford Plans Pricing](https://apis.io/plans/ford/ford-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Ford Rate Limits](https://apis.io/rate-limits/ford/ford-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Ford Finops](https://apis.io/finops/ford/ford-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.ford.com/)
+- [Documentation](https://developer.ford.com/apis)
+- [Support](https://developer.ford.com/contact-us)
+- [Blog](https://www.ford.com/blog/)
+- [Terms of service](https://www.ford.com/help/terms/)
+- [Privacy policy](https://www.ford.com/help/privacy/)
+- [GitHub](https://github.com/ford)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 25.4** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 12.6 |
+| Contract governance | 33.3 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 6.6 |
+
+**Agent readiness 25.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 32.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ford/](https://apis.io/providers/ford/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ford: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ford/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
